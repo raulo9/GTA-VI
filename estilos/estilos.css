@@ -87,7 +87,7 @@ ul {
 /* ==========================================================================
    CABECERA CRISTAL ULTRA-TRANSPARENTE + HAMBURGUESA DE 2 LÍNEAS (MOBILE FIRST)
    ========================================================================== */
-/* Creo la cabecera fija con transparencia y efecto de cristal. */
+/* Creo la cabecera fija con transparencia y sin espacio sobrante abajo. */
 .site-header {
   position: sticky;
   top: 0;
@@ -100,10 +100,10 @@ ul {
   backdrop-filter: blur(22px) saturate(160%);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.65rem 1.25rem;
+  padding: 0.45rem 1.25rem;
 }
 
-/* Distribuyo el logo y los controles de la cabecera. */
+/* row-gap: 0 evita que se cree esa franja negra vacía cuando el menú está cerrado. */
 .header-container {
   max-width: var(--container-width);
   margin: 0 auto;
@@ -111,7 +111,8 @@ ul {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  column-gap: 1rem;
+  row-gap: 0;
   flex-wrap: wrap;
 }
 
@@ -126,9 +127,9 @@ ul {
 
 /* Limito el tamaño de la imagen del logotipo. */
 .brand-logo-img {
-  width: 42px;
+  width: 38px;
   height: auto;
-  max-height: 38px;
+  max-height: 34px;
   object-fit: contain;
 }
 
@@ -154,61 +155,58 @@ ul {
   pointer-events: none;
 }
 
-/* Botón Hamburguesa Minimalista de 2 Líneas (Visible en móvil <768px) */
+/* Botón Hamburguesa Minimalista Bicolor (Visible en móvil <768px) */
 .burger-2lines {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  gap: 6px;
-  width: 38px;
-  height: 38px;
-  padding: 6px;
+  gap: 7px;
+  width: 36px;
+  height: 34px;
+  padding: 2px 0;
   cursor: pointer;
   z-index: 102;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  background: transparent;
+  border: none;
 }
 
 /* Preparo las dos líneas que forman el icono. */
 .burger-2lines span {
   display: block;
-  height: 2px;
-  border-radius: 2px;
+  height: 2.5px;
+  border-radius: 99px;
 }
 
 .burger-2lines .line-1 {
-  width: 24px;
-  background: var(--text-primary);
+  width: 28px;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.55);
 }
 
 .burger-2lines .line-2 {
-  width: 16px;
+  width: 14px;
   background: var(--neon-pink);
+  box-shadow: 0 0 8px rgba(255, 42, 133, 0.55);
 }
 
-/* En móvil (<768px) el menú es desplegable y se abre al marcar #nav-toggle */
+/* Cuando NO está desplegada ocupa exactamente 0px de alto (sin empujar la barra) */
 .header-right {
   width: 100%;
-  display: grid;
-  grid-template-rows: 0fr;
+  max-height: 0;
   opacity: 0;
   pointer-events: none;
   overflow: hidden;
+  transition: max-height 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.header-right > * {
-  min-height: 0;
-}
-
-/* Muestro el menú cuando se marca el checkbox. */
+/* Al desplegarse vuelve exactamente al diseño en columna que te gustaba */
 .nav-toggle-input:checked ~ .header-right {
-  grid-template-rows: 1fr;
+  max-height: 320px;
   opacity: 1;
   pointer-events: auto;
   padding-top: 0.85rem;
-  margin-top: 0.65rem;
+  margin-top: 0.55rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -219,7 +217,7 @@ ul {
   padding: 0;
 }
 
-/* Organizo los enlaces del menú en columna en móvil. */
+/* Organizo los enlaces del menú en columna en móvil tal como estaba antes. */
 .nav-list {
   display: flex;
   flex-direction: column;
@@ -334,6 +332,9 @@ ul {
   filter: none !important;
 }
 
+/* ==========================================================================
+   SECCIÓN HERO (Sin border-bottom y con fundido perfecto hacia el body)
+   ========================================================================== */
 /* Creo la sección principal con imagen de fondo y contenido centrado. */
 .hero {
   position: relative;
@@ -529,19 +530,19 @@ ul {
   object-position: center center;
 }
 
-.card-img[src*="JasonLucia.jpg"] {
-  object-position: center 15%;
-}
-
-.card-img[src*="Jason.jpg"],
-.card-img[src*="JasonDuval.jpg"] {
-  object-position: center 20%;
-}
-
-.card-img[src*="fondo.jpg"],
-.card-img[src*="fondo_2.jpg"] {
-  object-position: center 18%;
-}
+/* Centro a mano cada foto para no cortar partes importantes */
+.card-img[src*="ViceCity"] { object-position: center 45%; }
+.card-img[src*="Grassrivers.jpg"] { object-position: center 65%; }
+.card-img[src*="paisaje.jpg"] { object-position: 70% 60%; }
+.card-img[src*="paisaje_arenoso.jpg"] { object-position: center 55%; }
+.card-img[src*="playitas.jpg"] { object-position: center 65%; }
+.card-img[src*="puerto.jpg"] { object-position: center 60%; }
+.card-img[src*="gordito_piwi.jpg"] { object-position: 38% center; }
+.card-img[src*="Iguana.jpg"] { object-position: center 25%; }
+.card-img[src*="Vice_City_01.jpg"] { object-position: center 40%; }
+.card-img[src*="JasonLucia.jpg"] { object-position: center 15%; }
+.card-img[src*="Jason.jpg"], .card-img[src*="JasonDuval.jpg"] { object-position: 58% 18%; }
+.card-img[src*="fondo.jpg"], .card-img[src*="fondo_2.jpg"] { object-position: center 22%; }
 
 /* Coloco una etiqueta encima de la imagen. */
 .card-badge-overlay {
@@ -592,7 +593,7 @@ ul {
 }
 
 /* ==========================================================================
-   PROTAGONISTAS: AJUSTE PERFECTO PARA JasonLucia.jpg, Lucia.jpg Y JasonDuval.jpg
+   PROTAGONISTAS: AJUSTE PERFECTO PARA fondo.jpg, Lucia.jpg Y JasonDuval.jpg
    ========================================================================== */
 /* Creo el banner panorámico de los dos protagonistas. */
 .duo-banner {
@@ -608,12 +609,12 @@ ul {
   background: #05030a;
 }
 
-/* Suavizo la ampliación de la imagen panorámica. */
+/* Centrado exacto (center 22%) para que las cabezas de Jason y Lucía entren en el banner. */
 .duo-banner-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 16%;
+  object-position: center 22%;
 }
 
 /* Coloco un degradado y el texto sobre la imagen. */
@@ -659,7 +660,6 @@ ul {
 
 /* Coloco las dos caras una encima de otra y oculto su reverso. */
 .flip-card-front,
-/* Diseño la parte trasera con los datos del personaje. */
 .flip-card-back {
   position: absolute;
   inset: 0;
@@ -922,15 +922,24 @@ ul {
    ========================================================================== */
 /* Adapto el menú y las tarjetas a pantallas de tablet y escritorio. */
 @media (min-width: 768px) {
-/* Dibujo el botón hamburguesa de dos líneas para móvil. */
+  .site-header {
+    padding: 0.65rem 1.25rem;
+  }
+
+  .brand-logo-img {
+    width: 42px;
+    max-height: 38px;
+  }
+
+  /* Quito la hamburguesa en tablet y escritorio. */
   .burger-2lines {
     display: none;
   }
 
   .header-right,
-/* Muestro el menú cuando se marca el checkbox. */
   .nav-toggle-input:checked ~ .header-right {
     width: auto;
+    max-height: none;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -944,7 +953,6 @@ ul {
     overflow: visible;
   }
 
-/* Organizo los enlaces del menú en columna en móvil. */
   .nav-list {
     flex-direction: row;
     align-items: center;
@@ -952,36 +960,30 @@ ul {
     padding-bottom: 0;
   }
 
-/* Defino la apariencia de cada enlace de navegación. */
   .nav-link {
     font-size: 1.05rem;
     padding: 0.35rem 0;
   }
 
-/* Agrupo los controles de radio y estrellas. */
   .header-controls {
     padding-top: 0;
     border-top: none;
     gap: 1.25rem;
   }
 
-/* Agrupo las seis estrellas del nivel de búsqueda. */
   .wanted-hud {
     padding-left: 1rem;
     border-left: 1px solid var(--border-subtle);
   }
 
-/* Organizo los botones principales de la portada. */
   .hero-actions {
     flex-direction: row;
   }
 
-/* Organizo las tarjetas en una cuadrícula adaptable. */
   .cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-/* Distribuyo las fichas de los protagonistas. */
   .character-showcase {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -989,12 +991,10 @@ ul {
 
 /* Aumento el espacio y las columnas en pantallas grandes. */
 @media (min-width: 1280px) {
-/* Organizo las tarjetas en una cuadrícula adaptable. */
   .cards-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-/* Limito el ancho y separo las secciones de contenido. */
   .section {
     padding: 6rem 1.5rem;
   }
