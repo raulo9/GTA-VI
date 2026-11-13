@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Movimiento — Documentación Técnica GTA VI</title>
+  <link rel="icon" href="img/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Chakra+Petch:ital,wght@0,500;0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/pricedown" rel="stylesheet">
+  <link rel="stylesheet" href="estilos/estilos.css">
+  <link rel="stylesheet" href="estilos/animaciones.css">
+</head>
+<body>
+
+  <!-- CABECERA CRISTAL ULTRA-TRANSPARENTE CON MENÚ HAMBURGUESA DE 2 LÍNEAS (CSS PURO) -->
+  <!-- Cabecera con el logotipo, la navegación y los controles. -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" aria-label="Inicio Grand Theft Auto VI">
+        <img class="brand-logo-img" src="img/logo.png" width="42" height="42" alt="Logotipo oficial GTA VI">
+      </a>
+
+      <!-- Este checkbox abre y cierra el menú móvil mediante CSS. -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Abrir menú de navegación">
+      <!-- Las dos líneas forman el icono hamburguesa. -->
+      <label for="nav-toggle" class="burger-2lines" aria-hidden="true">
+        <span class="line-1"></span>
+        <span class="line-2"></span>
+      </label>
+
+      <div class="header-right">
+        <!-- Enlaces para cambiar entre las páginas del proyecto. -->
+        <nav aria-label="Navegación principal" class="main-nav">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Vice City</a></li>
+            <li><a href="personajes.html" class="nav-link">Protagonistas</a></li>
+            <li><a href="movimiento.html" class="nav-link active">Guía de Movimiento</a></li>
+          </ul>
+        </nav>   
+
+        <!-- Controles de la radio y del nivel de búsqueda. -->
+        <div class="header-controls">
+          <!-- Botón de Radio Vice City (Salta directo al verso en el segundo 55) -->
+          <button type="button" class="radio-btn" aria-label="Activar o pausar Radio Vice FM" onclick="const a=document.getElementById('bg-music'); if(a.paused){a.play();this.classList.add('is-playing');}else{a.pause();this.classList.remove('is-playing');}">
+            <span class="radio-bars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+            <span class="radio-text">VICE FM</span>
+          </button>
+          <audio id="bg-music" src="audio/patilla.mp3#t=55" preload="metadata" loop></audio>
+
+          <!-- Grupo de seis estrellas inspirado en el nivel de búsqueda de GTA. -->
+          <div class="wanted-hud" role="group" aria-label="Nivel de búsqueda policial de 6 estrellas">
+            <button type="button" class="star" aria-label="1 estrella">★</button>
+            <button type="button" class="star" aria-label="2 estrellas">★</button>
+            <button type="button" class="star" aria-label="3 estrellas">★</button>
+            <button type="button" class="star" aria-label="4 estrellas">★</button>
+            <button type="button" class="star" aria-label="5 estrellas">★</button>
+            <button type="button" class="star" aria-label="6 estrellas">★</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido principal de la guía técnica. -->
+  <main class="section">
+    <div class="section-header">
+      <span class="badge-neon">Documentación Oficial del Sistema de Diseño</span>
+      <h1 class="section-title">Guía de Movimiento con Intención</h1>
+      <p class="section-desc">
+        Justificación técnica, expresiva, de rendimiento y accesibilidad del sistema de animaciones 100% CSS puro de la web de Grand Theft Auto VI.
+      </p>
+    </div>
+
+    <!-- 1. EL CARÁCTER DEL MOVIMIENTO EN 3 ADJETIVOS -->
+    <!-- Cada bloque explica una parte del sistema de movimiento. -->
+    <section class="doc-block reveal-on-scroll" aria-labelledby="caracter-heading">
+      <h2 id="caracter-heading" class="card-title">1. Carácter del movimiento: 3 Adjetivos y su relación con GTA VI</h2>
+      <p class="card-text" style="margin-bottom: 1rem;">
+        El movimiento en una web de videojuegos de acción no puede ser lento ni indeciso; debe reflejar la tensión de las persecuciones en Vice City y la nitidez de las interfaces modernas de Rockstar Games:
+      </p>
+      <div class="cards-grid">
+        <div class="card"><div class="card-body">
+          <span class="card-tag">Adjetivo 01</span>
+          <h3 class="card-title">Enérgico</h3>
+          <p class="card-text">
+            Las acciones del usuario reciben respuesta inmediata (180ms) con un ligero impulso elástico. Encaja con el ritmo adrenalínico de Leonida y la emisora Vice FM.
+          </p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <span class="card-tag">Adjetivo 02</span>
+          <h3 class="card-title">Táctico</h3>
+          <p class="card-text">
+            Cada movimiento sirve para seleccionar objetivos, desplegar el menú hamburguesa bicolor de 2 líneas o girar en 3D (180°) los expedientes policiales de Lucía y Jason.
+          </p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <span class="card-tag">Adjetivo 03</span>
+          <h3 class="card-title">Cinematográfico</h3>
+          <p class="card-text">
+            Las aperturas de escena, el foco de galería con <code>:has()</code> y los revelados de scroll nativos utilizan desaceleraciones pronunciadas (ease-out-expo) que imitan el movimiento de cámara propio de los tráilers del juego.
+          </p>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- 2. TOKENS DE MOVIMIENTO -->
+    <section class="doc-block reveal-on-scroll" aria-labelledby="tokens-heading">
+      <h2 id="tokens-heading" class="card-title">2. Tokens de Movimiento definidos en <code>:root</code></h2>
+      <ul class="stats-list">
+        <li><span class="code-pill">--dur-fast: 180ms</span> → Destinado a microinteracciones de feedback instantáneo (botones, control de radio Vice FM, encendido de las 6 estrellas y enlaces del menú).</li>
+        <li><span class="code-pill">--dur-base: 380ms</span> → Duración estándar para cambios espaciales de plano (transformación en X del menú hamburguesa bicolor de 2 líneas, elevación 2D de tarjetas, filtro de galería y logotipo VI).</li>
+        <li><span class="code-pill">--dur-slow: 750ms</span> → Reservado para el giro completo de 180° en 3D de las tarjetas de Lucía y Jason, el llenado escalonado de sus barras, las entradas del Hero y las apariciones al hacer scroll.</li>
+        <li><span class="code-pill">--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1)</span> → Curva de desaceleración física: arranca con velocidad máxima para no hacer esperar al usuario y aterriza con suavidad.</li>
+        <li><span class="code-pill">--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)</span> → Curva elástica con un ligero rebote controlado que aporta sensación táctil arcade en botones, menú de 2 líneas, estrellas, tarjetas y giro 3D.</li>
+      </ul>
+    </section>
+
+    <!-- 3. TABLA CON TODAS LAS ANIMACIONES -->
+    <section class="doc-block reveal-on-scroll" aria-labelledby="tabla-heading">
+      <h2 id="tabla-heading" class="card-title">3. Inventario Técnico de Animaciones y Propósito UX</h2>
+      <!-- Contenedor que permite desplazar la tabla en pantallas estrechas. -->
+      <div class="table-responsive">
+        <table class="motion-table">
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>Tipo</th>
+              <th>Propiedades Animadas</th>
+              <th>Duración</th>
+              <th>Curva</th>
+              <th>Propósito en la Experiencia de Usuario (UX)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>.burger-2lines span</code></td>
+              <td>Transición 2D (CSS Checkbox)</td>
+              <td><code>transform: translateY() rotate()</code>, <code>width</code>, <code>box-shadow</code></td>
+              <td><code>--dur-base</code> (380ms)</td>
+              <td><code>--ease-spring</code></td>
+              <td><strong>Feedback de estado de navegación:</strong> Iguala la raya rosa (50%) con la cian (100%) y las cruza en una X bicolor indicando que el menú móvil está desplegado, sin usar JavaScript.</td>
+            </tr>
+            <tr>
+              <td><code>.radio-bars span</code></td>
+              <td>Microinteracción + <code>@keyframes eqBounce</code></td>
+              <td><code>transform: scaleY()</code></td>
+              <td>380ms - 620ms</td>
+              <td><code>--ease-out-expo</code></td>
+              <td><strong>Feedback de estado de audio:</strong> Indica visualmente con 3 barras desfasadas si la emisora de radio del juego está reproduciendo música o está en pausa.</td>
+            </tr>
+            <tr>
+              <td><code>.wanted-hud .star</code></td>
+              <td>Microinteracción CSS (<code>:hover ~ .star</code>)</td>
+              <td><code>transform: scale() rotate()</code>, <code>color</code>, <code>filter</code></td>
+              <td><code>--dur-fast</code> (180ms)</td>
+              <td><code>--ease-spring</code></td>
+              <td><strong>Feedback de estado estilo GTA:</strong> Permite previsualizar de 1 a 6 estrellas con selectores de hermanos CSS puros y parpadeo policial (<code>policeSirenGlow</code>).</td>
+            </tr>
+            <tr>
+              <td><code>.nav-link</code> y <code>::after</code></td>
+              <td>Transición + 2D</td>
+              <td><code>transform: scaleX()</code>, <code>color</code></td>
+              <td><code>--dur-base</code> (380ms)</td>
+              <td><code>--ease-out-expo</code></td>
+              <td><strong>Orientación espacial:</strong> Confirma visualmente en qué página se encuentra el usuario mediante una línea inferior de neón acelerada por GPU.</td>
+            </tr>
+            <tr>
+              <td><code>.btn</code> (Hover / Active)</td>
+              <td>Microinteracción 2D</td>
+              <td><code>transform: translateY() scale()</code>, <code>box-shadow</code></td>
+              <td><code>--dur-fast</code> (180ms)</td>
+              <td><code>--ease-spring</code></td>
+              <td><strong>Feedback táctil (Affordance):</strong> Diferencia los botones accionables del texto estático y confirma la pulsación física al hacer clic.</td>
+            </tr>
+            <tr>
+              <td><code>.card</code>, <code>.card-img</code> y <code>:has()</code></td>
+              <td>Transición 2D + Foco de Galería</td>
+              <td><code>transform: translateY() scale() skewX()</code>, <code>filter</code></td>
+              <td><code>--dur-base</code> / <code>--dur-slow</code></td>
+              <td><code>--ease-spring</code> / <code>--ease-out-expo</code></td>
+              <td><strong>Foco de atención:</strong> Eleva e ilumina la región seleccionada mientras atenúa en blanco y negro el resto de tarjetas hermanas mediante <code>.cards-grid:has(.card:hover)</code>.</td>
+            </tr>
+            <tr>
+              <td><code>.flip-card-inner</code> y <code>.flip-card-back</code></td>
+              <td>Transformación 3D (Flip 180° + Parallax Z)</td>
+              <td><code>transform: rotateY(180deg) translateZ()</code>, <code>preserve-3d</code></td>
+              <td><code>--dur-slow</code> (750ms)</td>
+              <td><code>--ease-spring</code></td>
+              <td><strong>Revelado progresivo de información:</strong> Gira 180° en 3D con <code>:hover</code> y <code>:focus-within</code> haciendo sobresalir los textos y barras en el eje Z (relieve Parallax).</td>
+            </tr>
+            <tr>
+              <td><code>.stat-bar-fill</code></td>
+              <td>Transición 2D escalonada en vivo</td>
+              <td><code>transform: scaleX()</code> (con <code>transition-delay</code>)</td>
+              <td><code>--dur-slow</code> (750ms)</td>
+              <td><code>--ease-spring</code></td>
+              <td><strong>Feedback de datos sincronizado:</strong> Mantiene las barras a 0 y las rellena en cascada (220ms, 360ms y 500ms) justo en el momento en que el usuario voltea el expediente 3D.</td>
+            </tr>
+            <tr>
+              <td><code>.hero-content > *</code></td>
+              <td><code>@keyframes heroEntrance</code></td>
+              <td><code>opacity</code>, <code>transform: translateY()</code></td>
+              <td><code>--dur-slow</code> (750ms)</td>
+              <td><code>--ease-out-expo</code></td>
+              <td><strong>Jerarquía visual guiada:</strong> Ordena la lectura inicial en cascada con desfases de 90ms (Emblema VI, Insignia, Título Pricedown y Botones CTA).</td>
+            </tr>
+            <tr>
+              <td><code>.reveal-on-scroll</code></td>
+              <td>Efecto de Scroll Nativo CSS</td>
+              <td><code>opacity</code>, <code>transform: translateY()</code></td>
+              <td><code>--dur-slow</code> (750ms)</td>
+              <td><code>--ease-out-expo</code></td>
+              <td><strong>Continuidad de navegación:</strong> Utiliza <code>animation-timeline: view()</code> para revelar bloques al hacer scroll sin depender de librerías ni bloques JS.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. LAS 6 DECISIONES EXPLICADAS SOBRE INTERACCIÓN, RENDIMIENTO Y ACCESIBILIDAD -->
+    <section class="doc-block reveal-on-scroll" aria-labelledby="decisiones-heading">
+      <h2 id="decisiones-heading" class="card-title">4. Seis Decisiones Técnicas de Interacción, Rendimiento y Accesibilidad</h2>
+      
+      <div class="cards-grid">
+        <article class="card"><div class="card-body">
+          <span class="card-tag">Decisión 01 · Rendimiento GPU</span>
+          <h3 class="card-title">Prioridad en <code>transform</code>, <code>opacity</code> y <code>filter</code></h3>
+          <p class="card-text">
+            Las animaciones principales evitan modificar propiedades de maquetación como <code>top</code>, <code>height</code> o <code>margin</code>. Tanto el giro 3D con relieve Parallax (<code>rotateY(180deg)</code> + <code>translateZ()</code>), como el ecualizador (<code>scaleY()</code>) y las barras de habilidad (<code>scaleX()</code>) trabajan en la capa de composición de la GPU a 60 FPS constantes.
+          </p>
+        </div></article>
+
+        <article class="card"><div class="card-body">
+          <span class="card-tag">Decisión 02 · Accesibilidad Vestibular</span>
+          <h3 class="card-title">Adaptación de Tarjetas 3D en <code>prefers-reduced-motion</code></h3>
+          <p class="card-text">
+            Un giro espacial de 180 grados puede causar incomodidad a usuarios con trastornos vestibulares. Con <code>@media (prefers-reduced-motion: reduce)</code> desactivamos la rotación 3D física y sustituimos el volteo por una transición de opacidad instantánea entre la fotografía frontal y el expediente trasero, mostrando las barras ya rellenas al 100%.
+          </p>
+        </div></article>
+
+        <article class="card"><div class="card-body">
+          <span class="card-tag">Decisión 03 · Animaciones 100% CSS Puro</span>
+          <h3 class="card-title">Interacciones Resueltas con Selectores CSS Modernos</h3>
+          <p class="card-text">
+            Siguiendo la prioridad del entregable, todo el sistema de movimiento funciona sin bloques de script: el menú móvil bicolor usa el patrón <code>:checked ~ .header-right</code>, las 6 estrellas se iluminan con <code>.star:hover ~ .star</code>, el foco de galería emplea <code>.cards-grid:has(.card:hover)</code>, el giro 3D usa <code>:focus-within</code> y el scroll usa <code>animation-timeline: view()</code>.
+          </p>
+        </div></article>
+
+        <article class="card"><div class="card-body">
+          <span class="card-tag">Decisión 04 · Psicología de la Percepción</span>
+          <h3 class="card-title">Asimetría temporal y Coreografía en Cascada</h3>
+          <p class="card-text">
+            Según el umbral de Doherty, el encendido de las estrellas, la radio y los botones usa <code>--dur-fast: 180ms</code> para sentirse inmediato, mientras que el volteo de 180° de los protagonistas emplea <code>--dur-slow: 750ms</code> sincronizado con un <code>transition-delay</code> escalonado (220ms, 360ms y 500ms) para que las barras se llenen justo cuando la tarjeta termina de girar.
+          </p>
+        </div></article>
+
+        <article class="card"><div class="card-body">
+          <span class="card-tag">Decisión 05 · Mejora Progresiva</span>
+          <h3 class="card-title">Arquitectura en Tres Capas Independientes</h3>
+          <p class="card-text">
+            Al separar <code>estilos.css</code> y <code>animaciones.css</code>, toda la información, fotografías de Leonida y expedientes de los protagonistas siguen siendo 100% accesibles y legibles en móvil (360px), tableta (768px) y escritorio (1280px) incluso si fallase la carga de las animaciones.
+          </p>
+        </div></article>
+
+        <article class="card"><div class="card-body">
+          <span class="card-tag">Decisión 06 · Prevención de Fatiga Visual y Auditiva</span>
+          <h3 class="card-title">Control Manual de Audio con Fragmentos Nativos (<code>#t=</code>)</h3>
+          <p class="card-text">
+            La radio Vice FM nunca se reproduce sola al cargar o cambiar de página (evitando el reinicio intrusivo). Solo se activa a petición del usuario mediante <code>.radio-btn</code> y utiliza fragmentos multimedia nativos de HTML5 (<code>#t=28</code>, <code>#t=55</code>) para entrar en distintas partes de la canción en cada sección.
+          </p>
+        </div></article>
+      </div>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA CON AVISO LEGAL PARA GITHUB PAGES -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="brand-logo">
+        <img class="brand-logo-img" src="img/logo.png" width="40" height="40" alt="Logotipo oficial GTA VI">
+        <span class="brand-logo-text">GRAND THEFT AUTO</span>
+      </a>
+      <p>Proyecto Entregable Tema 07 · Diseño de Interfaces Web</p>
+      <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem; max-width: 600px;">
+        *Aviso: Este es un proyecto educativo no oficial creado exclusivamente con fines académicos y de portfolio. No está afiliado, asociado, autorizado ni respaldado por Rockstar Games o Take-Two Interactive. Todas las imágenes, marcas comerciales y derechos de autor pertenecen a sus respectivos creadores originales.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

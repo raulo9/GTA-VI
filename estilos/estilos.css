@@ -1,0 +1,1001 @@
+/* ==========================================================================
+   ESTILOS DE DISEÑO Y MAQUETACIÓN (MINIMALISTA · MOBILE FIRST) - GTA VI
+   ==========================================================================
+   Capa 1 (Estructura): Estética editorial limpia inspirada en Rockstar Games.
+   Incluye cabecera ultra-transparente (glassmorphism), menú hamburguesa de
+   2 líneas en móvil (<768px) resuelto 100% con CSS (:checked) y transición 
+   continua sin cortes entre el Hero y el fondo general.
+   ========================================================================== */
+
+/* Guardo colores, tipografías y medidas en variables para reutilizarlas. */
+:root {
+  --bg-dark: #07050e;
+  --bg-surface: rgba(14, 10, 26, 0.72);
+  --bg-surface-alt: rgba(20, 15, 38, 0.92);
+  --neon-pink: #ff2a85;
+  --neon-cyan: #00f0ff;
+  --neon-orange: #ff9900;
+  --text-primary: #ffffff;
+  --text-secondary: #b4aec6;
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  
+  --font-gta: 'Pricedown Bl', 'Pricedown', 'Bebas Neue', 'Impact', sans-serif;
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body: 'Chakra Petch', system-ui, -apple-system, sans-serif;
+  
+  --container-width: 1200px;
+  --border-radius: 6px;
+}
+
+/* Aplico un reinicio general para partir de medidas y márgenes controlados. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Configuro el desplazamiento suave y los estilos generales del documento. */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Defino el fondo general y la distribución principal de la página. */
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-dark);
+  background-image: 
+    linear-gradient(
+      to bottom,
+      #07050e 0%,
+      rgba(7, 5, 14, 0.82) 18%,
+      rgba(7, 5, 14, 0.84) 82%,
+      #07050e 100%
+    ),
+    url('../img/fondo_2.jpg'),
+    url('../img/fondo.jpg');
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Evito que las imágenes y gráficos se salgan de su contenedor. */
+img, svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Mantengo el color heredado y quito el subrayado predeterminado. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Quito las viñetas de las listas. */
+ul {
+  list-style: none;
+}
+
+/* ==========================================================================
+   CABECERA CRISTAL ULTRA-TRANSPARENTE + HAMBURGUESA DE 2 LÍNEAS (MOBILE FIRST)
+   ========================================================================== */
+/* Creo la cabecera fija con transparencia y efecto de cristal. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 7, 22, 0.52) 0%,
+    rgba(10, 7, 22, 0.32) 100%
+  );
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.65rem 1.25rem;
+}
+
+/* Distribuyo el logo y los controles de la cabecera. */
+.header-container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Alineo el logotipo y evito que se encoja. */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  z-index: 102;
+}
+
+/* Limito el tamaño de la imagen del logotipo. */
+.brand-logo-img {
+  width: 42px;
+  height: auto;
+  max-height: 38px;
+  object-fit: contain;
+}
+
+/* Doy estilo al texto que acompaña al logotipo. */
+.brand-logo-text {
+  font-family: var(--font-gta);
+  font-size: 1.35rem;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+}
+
+/* Resalto el detalle VI con el color rosa. */
+.vi-accent {
+  color: var(--neon-pink);
+}
+
+/* Checkbox oculto que controla la hamburguesa de 2 líneas sin JS */
+.nav-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Botón Hamburguesa Minimalista de 2 Líneas (Visible en móvil <768px) */
+.burger-2lines {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  width: 38px;
+  height: 38px;
+  padding: 6px;
+  cursor: pointer;
+  z-index: 102;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Preparo las dos líneas que forman el icono. */
+.burger-2lines span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.burger-2lines .line-1 {
+  width: 24px;
+  background: var(--text-primary);
+}
+
+.burger-2lines .line-2 {
+  width: 16px;
+  background: var(--neon-pink);
+}
+
+/* En móvil (<768px) el menú es desplegable y se abre al marcar #nav-toggle */
+.header-right {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.header-right > * {
+  min-height: 0;
+}
+
+/* Muestro el menú cuando se marca el checkbox. */
+.nav-toggle-input:checked ~ .header-right {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+  padding-top: 0.85rem;
+  margin-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Controlo el contenedor de navegación. */
+.main-nav {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Organizo los enlaces del menú en columna en móvil. */
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding-bottom: 0.85rem;
+}
+
+/* Defino la apariencia de cada enlace de navegación. */
+.nav-link {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.25rem 0;
+  position: relative;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Distingo el enlace correspondiente a la página actual. */
+.nav-link.active {
+  color: var(--text-primary);
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+  background: var(--neon-pink);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--text-primary);
+}
+
+/* Agrupo los controles de radio y estrellas. */
+.header-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Botón minimalista de Radio Vice FM */
+.radio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  padding: 0.28rem 0.68rem;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+}
+
+/* Activo distintas velocidades para las barras cuando la radio está sonando. */
+.radio-btn.is-playing {
+  color: var(--neon-cyan);
+  border-color: rgba(0, 240, 255, 0.45);
+  background: rgba(0, 240, 255, 0.08);
+}
+
+/* Coloco las barras del ecualizador en línea. */
+.radio-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+/* Ajusto las barras del ecualizador para que crezcan desde abajo. */
+.radio-bars span {
+  width: 2px;
+  height: 12px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+/* 6 Estrellas de búsqueda interactivas en CSS puro (:hover + ~) */
+.wanted-hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18rem;
+}
+
+/* Doy formato a cada estrella interactiva (Blanco con brillo neón para encajar con el header) */
+.star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.08rem;
+  line-height: 1;
+  padding: 0.1rem;
+  color: var(--text-primary);
+}
+
+/* Al pasar el ratón se encienden en el rosa neón de Vice City */
+.wanted-hud:hover .star {
+  color: var(--neon-pink);
+}
+
+/* Atenúo las estrellas posteriores a la que se señala */
+.wanted-hud .star:hover ~ .star {
+  color: rgba(255, 255, 255, 0.18);
+  filter: none !important;
+}
+
+/* Creo la sección principal con imagen de fondo y contenido centrado. */
+.hero {
+  position: relative;
+  min-height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem 5.5rem;
+  background: 
+    linear-gradient(
+      to bottom,
+      rgba(7, 5, 14, 0.32) 0%,
+      rgba(7, 5, 14, 0.68) 65%,
+      #07050e 98%,
+      #07050e 100%
+    ),
+    url('../img/JasonLucia.jpg') no-repeat;
+  background-size: cover;
+  background-position: center 18%;
+  border-bottom: none;
+  overflow: hidden;
+}
+
+/* Añado un degradado inferior para unir el hero con el fondo de la página. */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 90px;
+  background: linear-gradient(to bottom, transparent, #07050e 90%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Limito el ancho y coloco el contenido por encima del fondo. */
+.hero-content {
+  max-width: 720px;
+  z-index: 2;
+  padding: 1rem 0;
+}
+
+/* Ajusto el tamaño y la posición del emblema principal. */
+.hero-emblem {
+  width: 96px;
+  height: auto;
+  margin: 0 auto 1.25rem;
+  object-fit: contain;
+}
+
+/* Diseño la pequeña etiqueta de neón. */
+.badge-neon {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--neon-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+  background: rgba(0, 240, 255, 0.04);
+}
+
+/* Defino el título principal con un tamaño adaptable. */
+.hero-title {
+  font-family: var(--font-gta);
+  font-size: clamp(3rem, 8.5vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: 2px;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+}
+
+/* Limito el ancho y suavizo el texto secundario. */
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  font-weight: 500;
+}
+
+/* Organizo los botones principales de la portada. */
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Establezco el diseño común de los botones. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+/* Diferencio el botón principal con el rosa. */
+.btn-primary {
+  background: var(--neon-pink);
+  color: #fff;
+  border: 1px solid var(--neon-pink);
+}
+
+/* Doy un aspecto más discreto al botón secundario. */
+.btn-secondary {
+  background: rgba(7, 5, 14, 0.55);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   SECCIONES Y TARJETAS (Imágenes con aspect-ratio 16/10 uniforme)
+   ========================================================================== */
+/* Limito el ancho y separo las secciones de contenido. */
+.section {
+  padding: 5.5rem 1.5rem;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Centro el encabezado de cada sección. */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* Establezco el estilo de los títulos de sección. */
+.section-title {
+  font-family: var(--font-gta);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+/* Limito el ancho de las descripciones. */
+.section-desc {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 0.98rem;
+}
+
+/* Organizo las tarjetas en una cuadrícula adaptable. */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem;
+}
+
+/* Creo el aspecto de las tarjetas con fondo translúcido. */
+.card {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reservo un espacio con proporción fija para las imágenes. */
+.card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+  background: #05030a;
+}
+
+/* Hago que la imagen ocupe el espacio sin deformarse. */
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.card-img[src*="JasonLucia.jpg"] {
+  object-position: center 15%;
+}
+
+.card-img[src*="Jason.jpg"],
+.card-img[src*="JasonDuval.jpg"] {
+  object-position: center 20%;
+}
+
+.card-img[src*="fondo.jpg"],
+.card-img[src*="fondo_2.jpg"] {
+  object-position: center 18%;
+}
+
+/* Coloco una etiqueta encima de la imagen. */
+.card-badge-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(7, 5, 14, 0.85);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* Añado espacio interior al contenido de la tarjeta. */
+.card-body {
+  padding: 1.75rem;
+  flex: 1;
+}
+
+/* Resalto la categoría o etiqueta de cada tarjeta. */
+.card-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--neon-pink);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* Doy formato al título de la tarjeta. */
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+/* Defino el estilo del texto descriptivo. */
+.card-text {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   PROTAGONISTAS: AJUSTE PERFECTO PARA JasonLucia.jpg, Lucia.jpg Y JasonDuval.jpg
+   ========================================================================== */
+/* Creo el banner panorámico de los dos protagonistas. */
+.duo-banner {
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  aspect-ratio: 21 / 9;
+  min-height: 260px;
+  max-height: 440px;
+  width: 100%;
+  position: relative;
+  background: #05030a;
+}
+
+/* Suavizo la ampliación de la imagen panorámica. */
+.duo-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+}
+
+/* Coloco un degradado y el texto sobre la imagen. */
+.duo-banner-caption {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 5, 14, 0.92) 0%, rgba(7, 5, 14, 0.25) 45%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 1.75rem 2rem;
+}
+
+.duo-title {
+  font-family: var(--font-gta);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: 1.5px;
+}
+
+/* Distribuyo las fichas de los protagonistas. */
+.character-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+/* Establezco la perspectiva necesaria para el giro tridimensional. */
+.flip-card-3d {
+  perspective: 1400px;
+  height: 430px;
+  cursor: pointer;
+}
+
+/* Mantengo las dos caras dentro del mismo elemento 3D. */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  border-radius: var(--border-radius);
+}
+
+/* Coloco las dos caras una encima de otra y oculto su reverso. */
+.flip-card-front,
+/* Diseño la parte trasera con los datos del personaje. */
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Diseño la cara delantera de la ficha. */
+.flip-card-front {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--bg-dark);
+}
+
+/* Ajusto la fotografía del personaje al tamaño de la tarjeta. */
+.character-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.character-portrait[src*="Lucia.jpg"] {
+  object-position: 32% 18%;
+}
+
+.character-portrait[src*="Jason"] {
+  object-position: 58% 15%;
+}
+
+/* Añado un degradado para que el texto se lea sobre la foto. */
+.front-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 5, 14, 0.94) 0%, rgba(7, 5, 14, 0.25) 42%, transparent 85%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem;
+}
+
+/* Diseño la etiqueta identificativa del expediente. */
+.character-stamp {
+  align-self: flex-start;
+  background: rgba(7, 5, 14, 0.75);
+  color: var(--neon-pink);
+  border: 1px solid rgba(255, 42, 133, 0.5);
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+}
+
+/* Resalto el nombre del protagonista. */
+.front-character-name {
+  font-family: var(--font-gta);
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+
+/* Muestro una indicación para girar la tarjeta. */
+.flip-hint {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Diseño la parte trasera con los datos del personaje. */
+.flip-card-back {
+  background: var(--bg-surface-alt);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: rotateY(180deg);
+}
+
+/* Alineo el logo y los datos del encabezado trasero. */
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.75rem;
+}
+
+/* Limito el tamaño del logo de la ficha. */
+.back-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+/* Resalto el papel que tiene cada protagonista. */
+.character-role {
+  color: var(--neon-cyan);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  display: block;
+}
+
+/* Doy formato al nombre dentro del expediente. */
+.character-name {
+  font-family: var(--font-gta);
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: 1.5px;
+}
+
+/* Organizo las estadísticas en una lista vertical. */
+.stats-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+/* Agrupo el nombre y la barra de cada estadística. */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Coloco el nombre y el porcentaje en extremos opuestos. */
+.stat-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+/* Creo el fondo de cada barra de progreso. */
+.stat-bar-bg {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Muestro el porcentaje rellenando la barra. */
+.stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+  border-radius: 2px;
+}
+
+/* Separo y centro el texto final del expediente. */
+.back-footer-tag {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.65rem;
+}
+
+/* ==========================================================================
+   TABLAS Y DOCUMENTACIÓN (movimiento.html)
+   ========================================================================== */
+/* Agrupo cada bloque de documentación técnica. */
+.doc-block {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius);
+  padding: 2.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Permito desplazar la tabla horizontalmente en pantallas pequeñas. */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Defino el tamaño y la estructura visual de la tabla. */
+.motion-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: transparent;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+/* Aplico el mismo espaciado y separación a celdas y encabezados. */
+.motion-table th,
+.motion-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Resalto los encabezados de la tabla. */
+.motion-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--neon-cyan);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+}
+
+/* Destaco fragmentos de código dentro del texto. */
+.code-pill {
+  font-family: monospace;
+  background: rgba(255, 42, 133, 0.12);
+  color: var(--neon-pink);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* ==========================================================================
+   PIE DE PÁGINA MINIMALISTA
+   ========================================================================== */
+/* Diseño el pie de página y lo mantengo al final. */
+.site-footer {
+  margin-top: auto;
+  background: rgba(7, 5, 14, 0.85);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border-subtle);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Centro y organizo los elementos del pie. */
+.footer-inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (PROGRESIÓN RESPONSIVE: 768px Y 1280px)
+   ========================================================================== */
+/* Adapto el menú y las tarjetas a pantallas de tablet y escritorio. */
+@media (min-width: 768px) {
+/* Dibujo el botón hamburguesa de dos líneas para móvil. */
+  .burger-2lines {
+    display: none;
+  }
+
+  .header-right,
+/* Muestro el menú cuando se marca el checkbox. */
+  .nav-toggle-input:checked ~ .header-right {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.4rem;
+    margin-left: auto;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    opacity: 1;
+    pointer-events: auto;
+    overflow: visible;
+  }
+
+/* Organizo los enlaces del menú en columna en móvil. */
+  .nav-list {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 0;
+  }
+
+/* Defino la apariencia de cada enlace de navegación. */
+  .nav-link {
+    font-size: 1.05rem;
+    padding: 0.35rem 0;
+  }
+
+/* Agrupo los controles de radio y estrellas. */
+  .header-controls {
+    padding-top: 0;
+    border-top: none;
+    gap: 1.25rem;
+  }
+
+/* Agrupo las seis estrellas del nivel de búsqueda. */
+  .wanted-hud {
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-subtle);
+  }
+
+/* Organizo los botones principales de la portada. */
+  .hero-actions {
+    flex-direction: row;
+  }
+
+/* Organizo las tarjetas en una cuadrícula adaptable. */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+/* Distribuyo las fichas de los protagonistas. */
+  .character-showcase {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Aumento el espacio y las columnas en pantallas grandes. */
+@media (min-width: 1280px) {
+/* Organizo las tarjetas en una cuadrícula adaptable. */
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+/* Limito el ancho y separo las secciones de contenido. */
+  .section {
+    padding: 6rem 1.5rem;
+  }
+}

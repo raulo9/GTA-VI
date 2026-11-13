@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protagonistas — GTA VI · Lucía y Jason</title>
+  <link rel="icon" href="img/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Chakra+Petch:ital,wght@0,500;0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/pricedown" rel="stylesheet">
+  <link rel="stylesheet" href="estilos/estilos.css">
+  <link rel="stylesheet" href="estilos/animaciones.css">
+</head>
+<body>
+
+  <!-- CABECERA CRISTAL ULTRA-TRANSPARENTE CON MENÚ HAMBURGUESA DE 2 LÍNEAS (CSS PURO) -->
+  <!-- Cabecera con el logotipo, la navegación y los controles. -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" aria-label="Inicio Grand Theft Auto VI">
+        <img class="brand-logo-img" src="img/logo.png" width="42" height="42" alt="Logotipo oficial GTA VI">
+      </a>
+
+      <!-- Este checkbox abre y cierra el menú móvil mediante CSS. -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Abrir menú de navegación">
+      <!-- Las dos líneas forman el icono hamburguesa. -->
+      <label for="nav-toggle" class="burger-2lines" aria-hidden="true">
+        <span class="line-1"></span>
+        <span class="line-2"></span>
+      </label>
+
+      <div class="header-right">
+        <!-- Enlaces para cambiar entre las páginas del proyecto. -->
+        <nav aria-label="Navegación principal" class="main-nav">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Vice City</a></li>
+            <li><a href="personajes.html" class="nav-link active">Protagonistas</a></li>
+            <li><a href="movimiento.html" class="nav-link">Guía de Movimiento</a></li>
+          </ul>
+        </nav>
+
+        <!-- Controles de la radio y del nivel de búsqueda. -->
+        <div class="header-controls">
+          <!-- Botón de Radio Vice City (Salta directo al estribillo en el segundo 28) -->
+          <button type="button" class="radio-btn" aria-label="Activar o pausar Radio Vice FM" onclick="const a=document.getElementById('bg-music'); if(a.paused){a.play();this.classList.add('is-playing');}else{a.pause();this.classList.remove('is-playing');}">
+            <span class="radio-bars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+            <span class="radio-text">VICE FM</span>
+          </button>
+          <audio id="bg-music" src="audio/patilla.mp3#t=28" preload="metadata" loop></audio>
+
+          <!-- Grupo de seis estrellas inspirado en el nivel de búsqueda de GTA. -->
+          <div class="wanted-hud" role="group" aria-label="Nivel de búsqueda policial de 6 estrellas">
+            <button type="button" class="star" aria-label="1 estrella">★</button>
+            <button type="button" class="star" aria-label="2 estrellas">★</button>
+            <button type="button" class="star" aria-label="3 estrellas">★</button>
+            <button type="button" class="star" aria-label="4 estrellas">★</button>
+            <button type="button" class="star" aria-label="5 estrellas">★</button>
+            <button type="button" class="star" aria-label="6 estrellas">★</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" aria-labelledby="chars-heading">
+      <div class="section-header">
+        <span class="badge-neon">Expedientes Clasificados · Dpto. de Policía de Vice City</span>
+        <h1 id="chars-heading" class="section-title">«La única forma de salir de esta es juntos»</h1>
+        <p class="section-desc">
+          <strong>Pasa el cursor, toca en móvil o navega con Tab</strong> sobre las fotografías de Lucía y Jason para <strong>dar la vuelta a su tarjeta en 3D (180°)</strong> con CSS puro y revelar su expediente policial.
+        </p>
+      </div>
+
+      <!-- Banner panorámico interactivo con img/fondo.png -->
+      <!-- Imagen panorámica de Lucía y Jason con el texto superpuesto. -->
+      <div class="duo-banner reveal-on-scroll" tabindex="0">
+        <img src="img/fondo.jpg" alt="Jason y Lucía armados en un balcón en Vice City" class="duo-banner-img">
+        <div class="duo-banner-caption">
+          <span class="badge-neon">Objetivo Prioritario VCPD #01</span>
+          <h2 class="duo-title">JASON &amp; LUCÍA · GOLPE EN VICE CITY</h2>
+        </div>
+      </div>
+
+      <!-- TARJETAS FLIP 3D (Giran con :hover y :focus-within sin JS) -->
+      <!-- Contenedor de las dos fichas interactivas de los protagonistas. -->
+      <div class="character-showcase">
+        
+        <!-- FICHA 1: LUCÍA -->
+        <!-- La ficha gira para mostrar el expediente de cada personaje. -->
+        <div class="flip-card-3d reveal-on-scroll" tabindex="0" aria-label="Expediente 3D de Lucía. Pasa el ratón o enfoca para girar la tarjeta">
+          <div class="flip-card-inner">
+            
+            <!-- Cara delantera: fotografía y nombre del personaje. -->
+            <div class="flip-card-front">
+              <img class="character-portrait" src="img/Lucia.jpg" alt="Fotografía de Lucía armada frente a una patrulla policial en Vice City">
+              <div class="front-gradient-overlay">
+                <span class="character-stamp">Expediente #LC-8904 · En Busca y Captura</span>
+                <h2 class="front-character-name">LUCÍA</h2>
+                <span class="flip-hint">↻ Pasa el ratón o toca para girar el expediente</span>
+              </div>
+            </div>
+
+            <!-- Cara trasera: descripción y estadísticas del personaje. -->
+            <div class="flip-card-back">
+              <div class="back-header">
+                <img src="img/logo.png" width="38" height="38" alt="Logo VI" class="back-logo">
+                <div>
+                  <span class="character-role">Protagonista Principal · Cerebro de los Asaltos</span>
+                  <h3 class="character-name">Lucía</h3>
+                </div>
+              </div>
+
+              <p class="card-text">
+                Tras cumplir condena en la penitenciaría estatal de Leonida y llevar aún la tobillera electrónica de seguimiento, Lucía está decidida a cambiar su destino en Vice City. Experta en planificación táctica, infiltración y combate a corta distancia bajo fuego policial.
+              </p>
+
+              <div class="stats-list" aria-label="Estadísticas de Lucía">
+                <div class="stat-item">
+                  <div class="stat-label"><span>Liderazgo en Atracos</span><span>96%</span></div>
+                  <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label"><span>Precisión con Armas Cortas</span><span>92%</span></div>
+                  <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 92%;"></div></div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label"><span>Sangre Fría bajo Presión</span><span>89%</span></div>
+                  <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 89%;"></div></div>
+                </div>
+              </div>
+
+              <div class="back-footer-tag">BASE DE DATOS CRIMINAL DEL ESTADO DE LEONIDA · NIVEL 6★</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FICHA 2: JASON -->
+        <!-- Segunda ficha interactiva, correspondiente a Jason. -->
+        <div class="flip-card-3d reveal-on-scroll" tabindex="0" aria-label="Expediente 3D de Jason. Pasa el ratón o enfoca para girar la tarjeta">
+          <div class="flip-card-inner">
+            
+            <!-- Cara delantera: fotografía y nombre de Jason. -->
+            <div class="flip-card-front">
+              <img class="character-portrait" src="img/JasonDuval.jpg" onerror="this.onerror=null;this.src='img/Jason.jpg';" alt="Fotografía de Jason sobre su moto deportiva armado en Leonida">
+              <div class="front-gradient-overlay">
+                <span class="character-stamp">Expediente #JS-4412 · Peligro Extremo</span>
+                <h2 class="front-character-name">JASON</h2>
+                <span class="flip-hint">↻ Pasa el ratón o toca para girar el expediente</span>
+              </div>
+            </div>
+
+            <!-- Cara trasera: descripción y estadísticas de Jason. -->
+            <div class="flip-card-back">
+              <div class="back-header">
+                <img src="img/logo.png" width="38" height="38" alt="Logo VI" class="back-logo">
+                <div>
+                  <span class="character-role">Cómplice · Especialista en Huida y Vehículos</span>
+                  <h3 class="character-name">Jason</h3>
+                </div>
+              </div>
+
+              <p class="card-text">
+                Criado entre talleres mecánicos, moteles de carretera y los pantanos del sur, Jason domina cualquier motor terrestre o marítimo. Cuando suenan las sirenas en Port Gellhorn, su pericia al volante es la única garantía para romper el cerco policial.
+              </p>
+
+              <div class="stats-list" aria-label="Estadísticas de Jason">
+                <div class="stat-item">
+                  <div class="stat-label"><span>Conducción de Evasión</span><span>98%</span></div>
+                  <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label"><span>Reconocimiento Táctico (Águila)</span><span>90%</span></div>
+                  <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 90%;"></div></div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label"><span>Fuerza y Combate Cuerpo a Cuerpo</span><span>88%</span></div>
+                  <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 88%;"></div></div>
+                </div>
+              </div>
+
+              <div class="back-footer-tag">BASE DE DATOS CRIMINAL DEL ESTADO DE LEONIDA · NIVEL 6★</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA CON AVISO LEGAL PARA GITHUB PAGES -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="brand-logo">
+        <img class="brand-logo-img" src="img/logo.png" width="40" height="40" alt="Logotipo oficial GTA VI">
+        <span class="brand-logo-text">GRAND THEFT AUTO</span>
+      </a>
+      <p>Proyecto Entregable Tema 07 · Diseño de Interfaces Web</p>
+      <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem; max-width: 600px;">
+        *Aviso: Este es un proyecto educativo no oficial creado exclusivamente con fines académicos y de portfolio. No está afiliado, asociado, autorizado ni respaldado por Rockstar Games o Take-Two Interactive. Todas las imágenes, marcas comerciales y derechos de autor pertenecen a sus respectivos creadores originales.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
