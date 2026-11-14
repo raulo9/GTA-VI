@@ -75,14 +75,27 @@
         </p>
       </div>
 
-      <!-- Banner panorámico interactivo con img/fondo.png -->
-      <!-- Imagen panorámica de Lucía y Jason con el texto superpuesto. -->
-      <div class="duo-banner reveal-on-scroll" tabindex="0">
-        <img src="img/fondo.jpg" alt="Jason y Lucía armados en un balcón en Vice City" class="duo-banner-img">
-        <div class="duo-banner-caption">
-          <span class="badge-neon">Objetivo Prioritario VCPD #01</span>
-          <h2 class="duo-title">JASON &amp; LUCÍA · GOLPE EN VICE CITY</h2>
+      <!-- DOS VÍDEOS EN PARALELO SUSTITUYENDO EL BANNER (Mantiene el diseño responsive) -->
+      <div class="character-showcase" style="margin-bottom: 2.5rem;">
+        
+        <!-- Vídeo de Lucía Caminos -->
+        <div class="duo-banner reveal-on-scroll" style="margin-bottom: 0; aspect-ratio: 16 / 9;" tabindex="0">
+          <video src="video/Lucia_Caminos_Video_Clip.mp4" class="duo-banner-img" style="object-position: center center;" autoplay loop muted playsinline aria-label="Vídeo de Lucía Caminos recorriendo Vice City de noche"></video>
+          <div class="duo-banner-caption">
+            <span class="badge-neon">Objetivo Prioritario VCPD #01</span>
+            <h2 class="duo-title">LUCÍA CAMINOS · VICE CITY</h2>
+          </div>
         </div>
+
+        <!-- Vídeo de Jason Duval -->
+        <div class="duo-banner reveal-on-scroll" style="margin-bottom: 0; aspect-ratio: 16 / 9;" tabindex="0">
+          <video src="video/Jason_Duval_Video_Clip.mp4" class="duo-banner-img" style="object-position: center center;" autoplay loop muted playsinline aria-label="Vídeo de Jason Duval con bandana durante un asalto"></video>
+          <div class="duo-banner-caption">
+            <span class="badge-neon">Objetivo Prioritario VCPD #02</span>
+            <h2 class="duo-title">JASON DUVAL · EN ACCIÓN</h2>
+          </div>
+        </div>
+
       </div>
 
       <!-- TARJETAS FLIP 3D (Giran con :hover y :focus-within sin JS) -->

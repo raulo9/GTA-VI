@@ -241,12 +241,8 @@
 }
 
 /* ==========================================================================
-   3. GIRO 3D DE 180° + RELIEVE PARALLAX + BARRAS EN CASCADA (LUCÍA Y JASON)
-   ==========================================================================
-   QUÉ HACE: Al girar la tarjeta de Lucía o Jason, desbloqueamos el 3D (quitando
-   el overflow:hidden de la cara trasera) para que el encabezado y las barras 
-   floten hacia delante (translateZ), y llenamos las 3 barras de 0% a su máximo
-   en cascada justo mientras la tarjeta se da la vuelta. */
+   3. GIRO 3D DE 180° + RELIEVE PARALLAX CALIBRADO + BARRAS EN CASCADA
+   ========================================================================== */
 .flip-card-inner {
   transition: transform var(--dur-slow) var(--ease-spring);
 }
@@ -256,26 +252,25 @@
   transform: rotateY(180deg);
 }
 
-/* Desbloqueamos overflow en la cara trasera para que preserve-3d funcione de verdad */
+/* Relieve 3D ajustado sin desbordar los bordes de la tarjeta en móvil */
 .flip-card-back {
-  overflow: visible !important;
   transform-style: preserve-3d;
 }
 
 .back-header {
-  transform: translateZ(38px);
+  transform: translateZ(18px);
 }
 
 .flip-card-back .card-text {
-  transform: translateZ(24px);
+  transform: translateZ(12px);
 }
 
 .flip-card-back .stats-list {
-  transform: translateZ(45px);
+  transform: translateZ(20px);
 }
 
 .back-footer-tag {
-  transform: translateZ(20px);
+  transform: translateZ(10px);
 }
 
 /* Llenado en vivo de las barras de habilidad SOLO al voltear la tarjeta */
