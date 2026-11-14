@@ -17,14 +17,14 @@
 </head>
 <body>
 
-  <!-- CABECERA CRISTAL ULTRA-TRANSPARENTE CON MENÚ HAMBURGUESA DE 2 LÍNEAS (CSS PURO) -->
+  <!-- CABECERA CRISTAL ULTRA-TRANSPARENTE CON MENÚ HAMBURGUESA DE 2 LÍNEAS -->
   <header class="site-header">
     <div class="header-container">
       <a href="index.html" class="brand-logo" aria-label="Inicio Grand Theft Auto VI">
         <img class="brand-logo-img" src="img/logo.png" width="42" height="42" alt="Logotipo oficial GTA VI">
       </a>
 
-      <!-- Este checkbox permite abrir y cerrar el menú en móvil sin utilizar JavaScript -->
+      <!-- Este checkbox permite abrir y cerrar el menú en móvil -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Abrir menú de navegación">
 
       <!-- Las dos líneas forman el icono del menú hamburguesa bicolor -->
@@ -44,7 +44,7 @@
         </nav>
 
         <div class="header-controls">
-          <!-- Botón de Radio Vice City (Manual: solo suena si lo pulsas) -->
+          <!-- Botón de Radio Vice City -->
           <button type="button" class="radio-btn" aria-label="Activar o pausar Radio Vice FM" onclick="const a=document.getElementById('bg-music'); if(a.paused){a.play();this.classList.add('is-playing');}else{a.pause();this.classList.remove('is-playing');}">
             <span class="radio-bars" aria-hidden="true">
               <span></span><span></span><span></span>
@@ -72,6 +72,7 @@
     <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-content">
         <img class="hero-emblem" src="img/logo.png" width="115" height="115" alt="Emblema oficial de GTA VI">
+        <div><span class="badge-neon">Rockstar Games · Estado de Leonida</span></div>
         <h1 id="hero-heading" class="hero-title">Bienvenidos a Vice City</h1>
         <p class="hero-subtitle">
           La evolución más grande, salvaje e inmersiva de Grand Theft Auto. Recorre los rascacielos iluminados en neón de Vice City, los pantanos letales de Grassrivers y los cayos tropicales de Leonida.
@@ -173,7 +174,7 @@
           </div>
         </article>
 
-        <!-- Región 6: Marina y Puerto Deportivo (Con tu imagen puerto.jpg) -->
+        <!-- Región 6: Marina y Puerto Deportivo -->
         <article class="card reveal-on-scroll" tabindex="0">
           <div class="card-media">
             <img class="card-img" src="img/puerto.jpg" alt="Puerto deportivo de Vice City con catamaranes, lanchas y rascacielos al fondo">
@@ -233,7 +234,7 @@
           </div>
         </article>
 
-        <!-- Tarjeta 3: Letrero de Vice City y Tráfico Aéreo VIP (Con tu imagen Vice_City_01.jpg) -->
+        <!-- Tarjeta 3: Letrero de Vice City y Tráfico Aéreo VIP -->
         <article class="card reveal-on-scroll" tabindex="0">
           <div class="card-media">
             <img class="card-img" src="img/Vice_City_01.jpg" alt="Jet privado sobrevolando el letrero monumental iluminado de Vice City al atardecer">
