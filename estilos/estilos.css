@@ -321,13 +321,15 @@ ul {
   color: var(--text-primary);
 }
 
-/* Al pasar el ratón se encienden en el rosa neón de Vice City */
-.wanted-hud:hover .star {
+/* Al pasar el ratón O HACER CLIC se encienden en el rosa neón de Vice City */
+.wanted-hud:hover .star,
+.wanted-hud:focus-within .star {
   color: var(--neon-pink);
 }
 
-/* Atenúo las estrellas posteriores a la que se señala */
-.wanted-hud .star:hover ~ .star {
+/* Atenúo las estrellas posteriores a la que se señala o recibe el clic */
+.wanted-hud .star:hover ~ .star,
+.wanted-hud .star:focus ~ .star {
   color: rgba(255, 255, 255, 0.18);
   filter: none !important;
 }
@@ -555,9 +557,13 @@ ul {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(7, 5, 14, 0.85);
+  /* Bajamos la opacidad del fondo del 85% al 40% para que sea mucho más transparente */
+  background: rgba(7, 5, 14, 0.4); 
+  /* Añadimos un ligero desenfoque para que el texto siga leyendo perfecto sobre la foto */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 0.2rem 0.6rem;
   font-size: 0.68rem;
   font-weight: 700;

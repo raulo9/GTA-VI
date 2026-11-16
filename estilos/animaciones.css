@@ -1,18 +1,14 @@
 /* ==========================================================================
    SISTEMA DE MOVIMIENTO, TRANSICIONES Y ANIMACIONES (100% CSS PURO) - GTA VI
-   ==========================================================================
-   Incluye los Tokens en :root, la transformación de la hamburguesa bicolor,
-   el ecualizador de Vice FM, las tarjetas 2D con barrido de luz, el 
-   giro 3D de 180º con llenado de barras en vivo y soporte prefers-reduced-motion.
    ========================================================================== */
 
 :root {
-  /* 3 Duraciones coherentes en todo el proyecto */
+  /* Es mi caja de variables (tokens). Aquí guardo los 3 tiempos (fast, base, slow) 
+     y las 2 curvas de velocidad para usarlas en todo el código y que todo se mueva al mismo ritmo. */
   --dur-fast: 180ms;
   --dur-base: 380ms;
   --dur-slow: 750ms;
 
-  /* 2 Curvas personalizadas (cubic-bezier) */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -21,9 +17,8 @@
    1. MICROINTERACCIONES EN EL LOGO, HAMBURGUESA BICOLOR, RADIO Y ESTRELLAS
    ========================================================================== */
 
-/* Emblema "VI" en el Nav y Hero:
-   QUÉ ANIMA: transform (scale + rotate) y filter (drop-shadow).
-   POR QUÉ: --dur-base con --ease-spring da un pulso elástico al tocar el emblema. */
+/* Le doy un pequeño efecto elástico al logo. Al pasar el ratón, se hace un pelín 
+   más grande, gira un poco y se ilumina la sombra neón. */
 .brand-logo-img,
 .hero-emblem {
   transition: 
@@ -42,8 +37,8 @@
   filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.75));
 }
 
-/* Animación de la Hamburguesa Bicolor (Cian 100% + Rosa 50%):
-   QUÉ HACE: Al pasar el ratón invierte longitudes y al abrir (:checked) forma una X bicolor. */
+/* Es el menú hamburguesa del móvil. Hice que cuando el checkbox oculto se marca (:checked), 
+   las dos líneas cambien de color y roten 45 grados para formar una X perfecta. */
 .burger-2lines {
   transition: transform var(--dur-fast) var(--ease-spring);
 }
@@ -57,13 +52,8 @@
     box-shadow var(--dur-fast) var(--ease-out-expo);
 }
 
-.burger-2lines:hover .line-1 {
-  width: 18px;
-}
-
-.burger-2lines:hover .line-2 {
-  width: 28px;
-}
+.burger-2lines:hover .line-1 { width: 18px; }
+.burger-2lines:hover .line-2 { width: 28px; }
 
 .nav-toggle-input:checked + .burger-2lines .line-1 {
   width: 28px;
@@ -79,18 +69,22 @@
   box-shadow: 0 0 12px rgba(255, 42, 133, 0.85);
 }
 
+/* El contenedor del menú en móvil. En lugar de aparecer de golpe cortando la pantalla, 
+   le animo el max-height y la opacidad para que se despliegue suavemente hacia abajo. */
 .header-right {
   transition: 
     grid-template-rows var(--dur-base) var(--ease-out-expo),
     opacity var(--dur-base) var(--ease-out-expo);
 }
 
-/* Botón de Radio Vice FM y Ecualizador animado con @keyframes (scaleY) */
+/* Las tres barritas de la radio. Usan un bucle infinito que las estira hacia arriba y abajo (scaleY) 
+   a distintas velocidades, pero solo funcionan si el botón tiene la clase activa (.is-playing). */
 @keyframes eqBounce {
   0%, 100% { transform: scaleY(0.3); }
   50% { transform: scaleY(1); }
 }
 
+/* El botón de Vice FM. Al pasar el ratón, lo subo 2 píxeles para que parezca que lo vas a pulsar. */
 .radio-btn {
   transition: 
     color var(--dur-fast) var(--ease-out-expo),
@@ -112,17 +106,12 @@
   transition: transform var(--dur-fast) var(--ease-out-expo);
 }
 
-.radio-btn.is-playing .radio-bars span:nth-child(1) {
-  animation: eqBounce 0.52s var(--ease-out-expo) infinite;
-}
-.radio-btn.is-playing .radio-bars span:nth-child(2) {
-  animation: eqBounce 0.38s var(--ease-out-expo) infinite 0.14s;
-}
-.radio-btn.is-playing .radio-bars span:nth-child(3) {
-  animation: eqBounce 0.62s var(--ease-out-expo) infinite 0.24s;
-}
+.radio-btn.is-playing .radio-bars span:nth-child(1) { animation: eqBounce 0.52s var(--ease-out-expo) infinite; }
+.radio-btn.is-playing .radio-bars span:nth-child(2) { animation: eqBounce 0.38s var(--ease-out-expo) infinite 0.14s; }
+.radio-btn.is-playing .radio-bars span:nth-child(3) { animation: eqBounce 0.62s var(--ease-out-expo) infinite 0.24s; }
 
-/* 6 Estrellas de Búsqueda interactivas a la derecha del Nav */
+/* Las estrellas de búsqueda. Les puse un latido fijo, y al apuntar con el ratón 
+   se agrandan y giran un poco para confirmar que las vas a seleccionar. */
 .star {
   transition: 
     transform var(--dur-fast) var(--ease-spring),
@@ -137,15 +126,12 @@
 }
 
 @keyframes policeSirenGlow {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.55));
-  }
-  50% {
-    filter: drop-shadow(0 0 8px rgba(255, 42, 133, 0.7));
-  }
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.55)); }
+  50% { filter: drop-shadow(0 0 8px rgba(255, 42, 133, 0.7)); }
 }
 
-/* Enlaces del navegador con línea inferior minimalista acelerada por GPU (scaleX) */
+/* Es la línea cian debajo de los enlaces del menú. La escondo poniéndole 
+   anchura cero (scaleX(0)) y, al hacer hover, se despliega de izquierda a derecha. */
 .nav-link {
   transition: color var(--dur-fast) var(--ease-out-expo);
 }
@@ -168,7 +154,8 @@
   transform: scaleX(1);
 }
 
-/* Botones principales (CTA) */
+/* Al pasar el ratón, levanto los botones hacia arriba. El truco está en el estado :active: 
+   al hacer el clic real, los hundo (scale(0.98)) para que den la sensación de ser botones físicos reales. */
 .btn {
   transition: 
     transform var(--dur-fast) var(--ease-spring),
@@ -198,6 +185,9 @@
 /* ==========================================================================
    2. TRANSFORMACIONES 2D Y BARRIDO DE LUZ SUTIL EN TARJETAS DEL MAPA
    ========================================================================== */
+
+/* Tarjetas del mapa. Al pasar el ratón, la tarjeta entera sube un poco 
+   y la foto del interior hace zoom lento. */
 .card {
   transition: 
     transform var(--dur-base) var(--ease-out-expo),
@@ -209,6 +199,8 @@
   transition: transform var(--dur-slow) var(--ease-out-expo);
 }
 
+/* Un pseudo-elemento invisible que cruza la tarjeta del mapa en diagonal. 
+   Al hacer hover, se desplaza rapidísimo simulando el reflejo de un cristal. */
 .card::before {
   content: '';
   position: absolute;
@@ -243,6 +235,9 @@
 /* ==========================================================================
    3. GIRO 3D DE 180° + RELIEVE PARALLAX CALIBRADO + BARRAS EN CASCADA
    ========================================================================== */
+
+/* La magia de los personajes. Uso rotateY(180deg) y preservo el 3D para que, 
+   al poner el ratón encima, la tarjeta entera dé la vuelta y muestre el expediente por detrás. */
 .flip-card-inner {
   transition: transform var(--dur-slow) var(--ease-spring);
 }
@@ -252,28 +247,14 @@
   transform: rotateY(180deg);
 }
 
-/* Relieve 3D ajustado sin desbordar los bordes de la tarjeta en móvil */
-.flip-card-back {
-  transform-style: preserve-3d;
-}
+.flip-card-back { transform-style: preserve-3d; }
+.back-header { transform: translateZ(18px); }
+.flip-card-back .card-text { transform: translateZ(12px); }
+.flip-card-back .stats-list { transform: translateZ(20px); }
+.back-footer-tag { transform: translateZ(10px); }
 
-.back-header {
-  transform: translateZ(18px);
-}
-
-.flip-card-back .card-text {
-  transform: translateZ(12px);
-}
-
-.flip-card-back .stats-list {
-  transform: translateZ(20px);
-}
-
-.back-footer-tag {
-  transform: translateZ(10px);
-}
-
-/* Llenado en vivo de las barras de habilidad SOLO al voltear la tarjeta */
+/* Las barras de porcentaje de Lucía y Jason. Les pongo un retraso escalonado (transition-delay) 
+   para que se llenen una a una de izquierda a derecha justo cuando terminas de girar la tarjeta. */
 .stat-bar-fill {
   transform-origin: left;
   transform: scaleX(0);
@@ -286,21 +267,16 @@
 }
 
 .flip-card-3d:hover .stat-item:nth-child(1) .stat-bar-fill,
-.flip-card-3d:focus-within .stat-item:nth-child(1) .stat-bar-fill {
-  transition-delay: 220ms;
-}
+.flip-card-3d:focus-within .stat-item:nth-child(1) .stat-bar-fill { transition-delay: 220ms; }
 
 .flip-card-3d:hover .stat-item:nth-child(2) .stat-bar-fill,
-.flip-card-3d:focus-within .stat-item:nth-child(2) .stat-bar-fill {
-  transition-delay: 360ms;
-}
+.flip-card-3d:focus-within .stat-item:nth-child(2) .stat-bar-fill { transition-delay: 360ms; }
 
 .flip-card-3d:hover .stat-item:nth-child(3) .stat-bar-fill,
-.flip-card-3d:focus-within .stat-item:nth-child(3) .stat-bar-fill {
-  transition-delay: 500ms;
-}
+.flip-card-3d:focus-within .stat-item:nth-child(3) .stat-bar-fill { transition-delay: 500ms; }
 
-/* Efecto en el banner grupal de Jason y Lucía */
+/* Los vídeos de los protagonistas. Solo les aplico un zoom pequeñito 
+   e ilumino los colores cuando pasas el ratón para darles más foco. */
 .duo-banner-img {
   transition: 
     transform var(--dur-slow) var(--ease-out-expo),
@@ -316,15 +292,12 @@
 /* ==========================================================================
    4. ANIMACIONES CON @KEYFRAMES (HERO Y PULSO NEÓN)
    ========================================================================== */
+
+/* Es la cascada de la portada. Hago que el logo, el título y los botones 
+   vayan apareciendo de arriba a abajo uno tras otro al cargar la página. */
 @keyframes heroEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(22px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .hero-content > * {
@@ -337,15 +310,11 @@
 .hero-content > *:nth-child(4) { animation-delay: 330ms; }
 .hero-content > *:nth-child(5) { animation-delay: 420ms; }
 
+/* Un simple efecto de parpadeo infinito para las etiquetas pequeñas, 
+   que cambia un poco la opacidad y el tamaño. */
 @keyframes neonPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.04);
-    opacity: 0.78;
-  }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.04); opacity: 0.78; }
 }
 
 .badge-neon {
@@ -355,15 +324,12 @@
 /* ==========================================================================
    5. REVELADO PROGRESIVO AL HACER SCROLL (100% CSS PURO SIN JAVASCRIPT)
    ========================================================================== */
+
+/* El efecto de ir mostrando cosas al bajar por la web. Empiezan transparentes 
+   y un poco más abajo, y suben a su sitio original a medida que haces scroll. */
 @keyframes scrollReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(28px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .reveal-on-scroll {
@@ -381,6 +347,9 @@
 /* ==========================================================================
    6. ACCESIBILIDAD: MOVIMIENTO REDUCIDO (prefers-reduced-motion: reduce)
    ========================================================================== */
+
+/* El modo accesibilidad. Si el usuario se marea fácil y tiene esto activado, 
+   pongo las duraciones a cero y anulo los giros 3D para que todo aparezca de golpe sin marear. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

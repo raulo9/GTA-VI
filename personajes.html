@@ -14,7 +14,7 @@
 </head>
 <body>
 
-  <!-- CABECERA CRISTAL ULTRA-TRANSPARENTE CON MENÚ HAMBURGUESA DE 2 LÍNEAS (CSS PURO) -->
+  <!-- CABECERA CRISTAL ULTRA-TRANSPARENTE CON MENÚ HAMBURGUESA DE 2 LÍNEAS -->
   <!-- Cabecera con el logotipo, la navegación y los controles. -->
   <header class="site-header">
     <div class="header-container">
@@ -22,7 +22,7 @@
         <img class="brand-logo-img" src="img/logo.png" width="42" height="42" alt="Logotipo oficial GTA VI">
       </a>
 
-      <!-- Este checkbox abre y cierra el menú móvil mediante CSS. -->
+      <!-- Este checkbox abre y cierra el menú móvil. -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Abrir menú de navegación">
       <!-- Las dos líneas forman el icono hamburguesa. -->
       <label for="nav-toggle" class="burger-2lines" aria-hidden="true">
@@ -42,14 +42,14 @@
 
         <!-- Controles de la radio y del nivel de búsqueda. -->
         <div class="header-controls">
-          <!-- Botón de Radio Vice City (Salta directo al estribillo en el segundo 28) -->
+          <!-- Botón de Radio Vice City -->
           <button type="button" class="radio-btn" aria-label="Activar o pausar Radio Vice FM" onclick="const a=document.getElementById('bg-music'); if(a.paused){a.play();this.classList.add('is-playing');}else{a.pause();this.classList.remove('is-playing');}">
             <span class="radio-bars" aria-hidden="true">
               <span></span><span></span><span></span>
             </span>
             <span class="radio-text">VICE FM</span>
           </button>
-          <audio id="bg-music" src="audio/patilla.mp3#t=28" preload="metadata" loop></audio>
+          <audio id="bg-music" src="audio/patilla.mp3#t=15" preload="metadata" loop></audio>
 
           <!-- Grupo de seis estrellas inspirado en el nivel de búsqueda de GTA. -->
           <div class="wanted-hud" role="group" aria-label="Nivel de búsqueda policial de 6 estrellas">
@@ -75,7 +75,7 @@
         </p>
       </div>
 
-      <!-- DOS VÍDEOS EN PARALELO SUSTITUYENDO EL BANNER (Mantiene el diseño responsive) -->
+      <!-- DOS VÍDEOS EN PARALELO -->
       <div class="character-showcase" style="margin-bottom: 2.5rem;">
         
         <!-- Vídeo de Lucía Caminos -->
@@ -98,7 +98,7 @@
 
       </div>
 
-      <!-- TARJETAS FLIP 3D (Giran con :hover y :focus-within sin JS) -->
+      <!-- TARJETAS FLIP 3D (Giran con :hover y :focus-within) -->
       <!-- Contenedor de las dos fichas interactivas de los protagonistas. -->
       <div class="character-showcase">
         
