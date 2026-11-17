@@ -870,41 +870,79 @@ ul {
   border-radius: var(--border-radius);
   padding: 1.5rem 1.25rem;
   margin-bottom: 2rem;
+  overflow: hidden;
 }
 
-/* Permito desplazar la tabla horizontalmente en pantallas pequeñas. */
+/* En móvil: Full-Bleed (borde a borde), scroll fluido y pista visual de desplazamiento */
 .table-responsive {
-  width: 100%;
+  width: calc(100% + 2.5rem);
   overflow-x: auto;
-  margin: 1.25rem 0;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-subtle);
+  margin: 1.25rem 0 1.25rem -1.25rem;
+  border-radius: 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  border-left: none;
+  border-right: none;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: inset -15px 0 15px -15px rgba(0, 240, 255, 0.25);
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 5px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--neon-pink);
+  border-radius: 4px;
 }
 
 /* Defino el tamaño y la estructura visual de la tabla. */
 .motion-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 720px;
+  min-width: 800px;
   background: transparent;
   text-align: left;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
-/* Aplico el mismo espaciado y separación a celdas y encabezados. */
+/* Aplico el espaciado y alineación superior para filas largas. */
 .motion-table th,
 .motion-table td {
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 0.85rem;
   border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
 }
 
 /* Resalto los encabezados de la tabla. */
 .motion-table th {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--neon-cyan);
   font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 1.5px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Primera columna fija a la izquierda para no perder referencia al deslizar en móvil */
+.motion-table th:first-child,
+.motion-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #0b0814;
+  box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.4);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: bold;
+}
+
+.motion-table th:first-child {
+  background: #120e21;
+  z-index: 3;
 }
 
 /* Destaco fragmentos de código dentro del texto. */
@@ -912,9 +950,10 @@ ul {
   font-family: monospace;
   background: rgba(255, 42, 133, 0.12);
   color: var(--neon-pink);
-  padding: 0.15rem 0.45rem;
+  padding: 0.15rem 0.35rem;
   border-radius: 3px;
-  font-size: 0.85em;
+  font-size: 0.8em;
+  white-space: nowrap;
 }
 
 /* ==========================================================================
@@ -1057,6 +1096,51 @@ ul {
 
   .doc-block {
     padding: 2.25rem;
+  }
+
+  /* Restauramos la tabla como en el original a partir de 768px */
+  .table-responsive {
+    width: 100%;
+    margin: 1.25rem 0;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-subtle);
+    box-shadow: none;
+  }
+
+  .motion-table {
+    min-width: 720px;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .motion-table th,
+  .motion-table td {
+    padding: 1rem 1.25rem;
+    vertical-align: baseline;
+  }
+
+  .motion-table th {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+  }
+
+  .motion-table th:first-child,
+  .motion-table td:first-child {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    border-right: none;
+    font-weight: normal;
+  }
+
+  .motion-table th:first-child {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .code-pill {
+    padding: 0.15rem 0.45rem;
+    font-size: 0.85em;
+    white-space: normal;
   }
 }
 

@@ -191,7 +191,7 @@
               <td><code>transform: scale(1.35) rotate(12deg)</code>, <code>color</code>, <code>filter</code></td>
               <td><code>--dur-fast</code> (180ms) / 1.8s</td>
               <td><code>--ease-spring</code> / <code>--ease-out-expo</code></td>
-              <td><strong>Guiar la selección de nivel de búsqueda:</strong> Usando el selector de hermanos <code>.star:hover ~ .star</code>, ilumina en rosa todas las estrellas desde la primera hasta la que estás apuntando y apaga las siguientes, funcionando igual que un selector de valoración real pero ambientado en la policía de GTA.</td>
+              <td><strong>Guiar la selección de nivel de búsqueda:</strong> Usando el selector de hermanos <code>.star:hover ~ .star</code> y <code>.star:focus ~ .star</code>, ilumina en rosa todas las estrellas desde la primera hasta la seleccionada y apaga las siguientes, funcionando igual que un selector de valoración real pero ambientado en la policía de GTA.</td>
             </tr>
             <tr>
               <td><code>.btn</code> (Botones principales)</td>
@@ -215,7 +215,7 @@
               <td><code>transform: rotateY(180deg) translateZ(10px-20px)</code>, <code>preserve-3d</code></td>
               <td><code>--dur-slow</code> (750ms)</td>
               <td><code>--ease-spring</code></td>
-              <td><strong>Mostrar más información sin recargar la pantalla:</strong> Permite dejar la cara delantera limpia con la ilustración grande de Lucía o Jason y, solo cuando el usuario pasa el ratón o navega con el teclado (<code>:focus-within</code>), gira 180° en 3D para descubrir su historia y estadísticas policiales con relieve en el eje Z.</td>
+              <td><strong>Mostrar más información sin recargar la pantalla:</strong> Permite dejar la cara delantera limpia con la ilustración grande de Lucía o Jason y, al pasar el ratón en ordenador (<code>:hover</code>) o tocar cada tarjeta de forma independiente en móvil (<code>.card-toggle-input:checked</code>), gira 180° en 3D para descubrir su historia y estadísticas policiales con relieve en el eje Z.</td>
             </tr>
             <tr>
               <td><code>.stat-bar-fill</code></td>
@@ -274,23 +274,23 @@
           <span class="card-tag">Decisión 02 · Accesibilidad (Movimiento Reducido)</span>
           <h3 class="card-title">Adaptación completa con <code>prefers-reduced-motion</code></h3>
           <p class="card-text">
-            Hay personas a las que los giros en 3D, los zooms o los movimientos al hacer scroll les provocan mareos y tienen activada la opción de "reducir movimiento" en su sistema operativo. Al final de <code>animaciones.css</code> he creado un bloque <code>@media (prefers-reduced-motion: reduce)</code> que no solo baja las duraciones a <code>0.01ms</code> y detiene los bucles infinitos, sino que además cambia cómo funcionan las tarjetas 3D de los protagonistas: desactiva el <code>rotateY(180deg)</code> y hace que al pasar el ratón o usar el teclado la cara trasera aparezca directamente mediante un cambio limpio de <code>opacity</code>, con las barras ya al 100%. Así nadie pierde acceso a la información.
+            Hay personas a las que los giros en 3D, los zooms o los movimientos al hacer scroll les provocan mareos y tienen activada la opción de "reducir movimiento" en su sistema operativo. Al final de <code>animaciones.css</code> he creado un bloque <code>@media (prefers-reduced-motion: reduce)</code> que no solo baja las duraciones a <code>0.01ms</code> y detiene los bucles infinitos, sino que además cambia cómo funcionan las tarjetas 3D de los protagonistas: desactiva el <code>rotateY(180deg)</code> y hace que al tocar o pasar el ratón la cara trasera aparezca directamente mediante un cambio limpio de <code>opacity</code>, con las barras ya al 100%. Así nadie pierde acceso a la información.
           </p>
         </div></article>
 
         <article class="card"><div class="card-body">
-          <span class="card-tag">Decisión 03 · Interacción y Teclado</span>
-          <h3 class="card-title">Accesibilidad con tabulador (<code>:focus-visible</code> y <code>:focus-within</code>)</h3>
+          <span class="card-tag">Decisión 03 · Interacción Táctil y Escritorio</span>
+          <h3 class="card-title">Control independiente con <code>:checked</code> en móvil y <code>:hover</code> en PC</h3>
           <p class="card-text">
-            Un fallo muy común es pensar solo en el ratón (<code>:hover</code>) y olvidarse de los usuarios que navegan con la tecla <code>Tab</code> o desde pantallas táctiles. En todas las tarjetas y en los expedientes 3D de Lucía y Jason he añadido el atributo <code>tabindex="0"</code> en el HTML y he combinado <code>:hover</code> con <code>:focus-within</code> y <code>:focus-visible</code> en el CSS. Gracias a esto, si vas pulsando el tabulador por la página de personajes, las tarjetas se dan la vuelta en 3D y rellenan sus barras exactamente igual que cuando usas el ratón.
+            En pantallas táctiles el estado <code>:focus-within</code> hace que al tocar una segunda tarjeta la primera pierda el foco y se gire sola. Para que en móvil cada expediente 3D de Lucía y Jason gire de ida y vuelta de forma totalmente independiente sin afectar al otro, he empleado un <code>&lt;input type="checkbox" class="card-toggle-input"&gt;</code> asociado a un <code>&lt;label class="flip-card-inner"&gt;</code>, manteniendo el giro automático al pasar el ratón en ordenador mediante <code>@media (hover: hover) and (pointer: fine)</code>.
           </p>
         </div></article>
 
         <article class="card"><div class="card-body">
           <span class="card-tag">Decisión 04 · Interacción en CSS Puro</span>
-          <h3 class="card-title">Resolver el menú móvil, las estrellas y el scroll sin librerías JS</h3>
+          <h3 class="card-title">Resolver el menú móvil, tarjetas 3D, estrellas y scroll sin librerías JS</h3>
           <p class="card-text">
-            Siguiendo la regla del entregable de priorizar CSS puro, he resuelto las interacciones principales usando selectores avanzados de CSS: el menú móvil se abre y transforma la hamburguesa en una X gracias al estado de un checkbox oculto (<code>.nav-toggle-input:checked ~ .header-right</code>); las 6 estrellas policiales se encienden y apagan dinámicamente combinando <code>:hover</code> con el selector de hermanos posteriores (<code>.star:hover ~ .star</code>); y las apariciones al bajar por la página funcionan con la propiedad nativa <code>animation-timeline: view()</code> dentro de <code>@supports</code>. El único JavaScript de toda la web es el <code>onclick</code> de una línea en el botón de la radio para dar al play/pause y alternar la clase <code>.is-playing</code>.
+            Siguiendo la regla del entregable de priorizar CSS puro, he resuelto las interacciones principales usando selectores avanzados de CSS: el menú móvil y el giro táctil de las tarjetas funcionan con el estado <code>:checked</code> de checkboxes ocultos; las 6 estrellas policiales se encienden y apagan dinámicamente combinando <code>:hover</code> y <code>:focus</code> con el selector de hermanos posteriores (<code>~ .star</code>); y las apariciones al bajar por la página funcionan con la propiedad nativa <code>animation-timeline: view()</code> dentro de <code>@supports</code>. El único JavaScript de toda la web es el <code>onclick</code> de una línea en el botón de la radio para dar al play/pause y alternar la clase <code>.is-playing</code>.
           </p>
         </div></article>
 
@@ -306,7 +306,7 @@
           <span class="card-tag">Decisión 06 · Arquitectura en 3 Capas</span>
           <h3 class="card-title">Separación total entre maquetación (<code>estilos.css</code>) y movimiento (<code>animaciones.css</code>)</h3>
           <p class="card-text">
-            Tal como pide el enunciado, he construido la web por capas independientes. Primero maqueté toda la estructura Mobile First en <code>estilos.css</code> asegurándome de que en móvil (360px), tableta (768px) y ordenador (1280px) todas las fotos, textos y tablas se leyeran sin cortarse ni desbordar. Después añadí la capa de interacción y animación en <code>animaciones.css</code>. Si borras o comentas la línea que enlaza <code>animaciones.css</code>, toda la web sigue funcionando al 100%, manteniendo su diseño, sus colores y su menú operativo.
+            Tal como pide el enunciado, he construido la web por capas independientes. Primero maqueté toda la estructura Mobile First en <code>estilos.css</code> asegurándome de que en móvil (360px), tableta (768px) y ordenador (1280px) todas las fotos, textos y tablas (con primera columna fija <code>position: sticky</code> en pantallas pequeñas) se leyeran cómodamente. Después añadí la capa de interacción y animación en <code>animaciones.css</code>. Si borras o comentas la línea que enlaza <code>animaciones.css</code>, toda la web sigue funcionando al 100%, manteniendo su diseño, sus colores y su menú operativo.
           </p>
         </div></article>
       </div>

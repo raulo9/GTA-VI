@@ -236,15 +236,54 @@
    3. GIRO 3D DE 180° + RELIEVE PARALLAX CALIBRADO + BARRAS EN CASCADA
    ========================================================================== */
 
-/* La magia de los personajes. Uso rotateY(180deg) y preservo el 3D para que, 
-   al poner el ratón encima, la tarjeta entera dé la vuelta y muestre el expediente por detrás. */
-.flip-card-inner {
-  transition: transform var(--dur-slow) var(--ease-spring);
+/* Checkbox oculto para que cada tarjeta gire de forma independiente al tocar en móvil */
+.card-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 
-.flip-card-3d:hover .flip-card-inner,
-.flip-card-3d:focus-within .flip-card-inner {
+/* Es la capa transparente que pongo encima de la tarjeta para detectar el toque en móvil.
+   Al pulsarla, marca el checkbox de su tarjeta y esa tarjeta gira (la otra no se toca). */
+.flip-tap {
+  display: none;
+}
+
+/* Solo en móvil/tablet (pantallas táctiles): activo la capa y coloco la tarjeta como referencia */
+@media not all and (hover: hover) and (pointer: fine) {
+  .flip-card-3d {
+    position: relative;
+  }
+
+  .flip-tap {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.flip-card-inner {
+  transition: transform var(--dur-slow) var(--ease-spring);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Toque en móvil: gira solo la tarjeta pulsada (ida y vuelta), sin afectar a la otra */
+.card-toggle-input:checked ~ .flip-card-inner {
   transform: rotateY(180deg);
+}
+
+/* Ratón en ordenador: mantiene el giro al pasar el cursor */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card-3d:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
 }
 
 .flip-card-back { transform-style: preserve-3d; }
@@ -261,19 +300,23 @@
   transition: transform var(--dur-slow) var(--ease-spring);
 }
 
-.flip-card-3d:hover .stat-bar-fill,
-.flip-card-3d:focus-within .stat-bar-fill {
+.card-toggle-input:checked ~ .flip-card-inner .stat-bar-fill {
   transform: scaleX(1);
 }
 
-.flip-card-3d:hover .stat-item:nth-child(1) .stat-bar-fill,
-.flip-card-3d:focus-within .stat-item:nth-child(1) .stat-bar-fill { transition-delay: 220ms; }
+.card-toggle-input:checked ~ .flip-card-inner .stat-item:nth-child(1) .stat-bar-fill { transition-delay: 220ms; }
+.card-toggle-input:checked ~ .flip-card-inner .stat-item:nth-child(2) .stat-bar-fill { transition-delay: 360ms; }
+.card-toggle-input:checked ~ .flip-card-inner .stat-item:nth-child(3) .stat-bar-fill { transition-delay: 500ms; }
 
-.flip-card-3d:hover .stat-item:nth-child(2) .stat-bar-fill,
-.flip-card-3d:focus-within .stat-item:nth-child(2) .stat-bar-fill { transition-delay: 360ms; }
+@media (hover: hover) and (pointer: fine) {
+  .flip-card-3d:hover .stat-bar-fill {
+    transform: scaleX(1);
+  }
 
-.flip-card-3d:hover .stat-item:nth-child(3) .stat-bar-fill,
-.flip-card-3d:focus-within .stat-item:nth-child(3) .stat-bar-fill { transition-delay: 500ms; }
+  .flip-card-3d:hover .stat-item:nth-child(1) .stat-bar-fill { transition-delay: 220ms; }
+  .flip-card-3d:hover .stat-item:nth-child(2) .stat-bar-fill { transition-delay: 360ms; }
+  .flip-card-3d:hover .stat-item:nth-child(3) .stat-bar-fill { transition-delay: 500ms; }
+}
 
 /* Los vídeos de los protagonistas. Solo les aplico un zoom pequeñito 
    e ilumino los colores cuando pasas el ratón para darles más foco. */
@@ -367,9 +410,14 @@
   }
 
   .flip-card-inner,
-  .flip-card-3d:hover .flip-card-inner,
-  .flip-card-3d:focus-within .flip-card-inner {
+  .card-toggle-input:checked ~ .flip-card-inner {
     transform: none !important;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .flip-card-3d:hover .flip-card-inner {
+      transform: none !important;
+    }
   }
 
   .flip-card-back {
@@ -378,10 +426,16 @@
     pointer-events: none;
   }
 
-  .flip-card-3d:hover .flip-card-back,
-  .flip-card-3d:focus-within .flip-card-back {
+  .card-toggle-input:checked ~ .flip-card-inner .flip-card-back {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .flip-card-3d:hover .flip-card-back {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
   .stat-bar-fill {
