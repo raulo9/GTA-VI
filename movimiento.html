@@ -115,7 +115,7 @@
           <span class="code-pill">--dur-base: 380ms</span> → <strong>Para transiciones de interfaz y tarjetas 2D:</strong> La uso cuando un elemento cambia de forma o se desplaza una distancia media, como al cruzar las 2 líneas del menú hamburguesa para formar la X, al desplegar la línea inferior de los enlaces del menú o al elevar <code>6px</code> las tarjetas del mapa. Con 380ms da tiempo a ver el recorrido sin frenar la lectura.
         </li>
         <li>
-          <span class="code-pill">--dur-slow: 750ms</span> → <strong>Para transformaciones 3D y entradas de escena:</strong> Reservada para los movimientos que recorren más espacio en pantalla: el giro completo de 180° en 3D de las tarjetas de Lucía y Jason, el llenado de sus barras de estadísticas, el zoom de las fotografías, la entrada en cascada de la portada y el revelado al hacer scroll. Si durase menos de medio segundo, un giro de 180° se vería demasiado brusco y marearía.
+          <span class="code-pill">--dur-slow: 750ms</span> → <strong>Para transformaciones 3D y entradas de escena:</strong> Reservada para los movimientos que recorren más espacio en pantalla: el giro completo de 180° en 3D de las tarjetas de Lucía y Jason, el llenado de sus barras de estadísticas, el zoom de las fotografías y vídeos, la entrada en cascada de la portada y el revelado al hacer scroll. Si durase menos de medio segundo, un giro de 180° se vería demasiado brusco y marearía.
         </li>
         <li>
           <span class="code-pill">--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1)</span> → <strong>Curva de desaceleración suave:</strong> A diferencia de <code>linear</code> o del <code>ease</code> normal, esta curva arranca a máxima velocidad en el primer instante (para que el usuario note que la web reacciona enseguida) y dedica la mayor parte del tiempo a frenar poco a poco hasta colocarse en su sitio.
@@ -151,15 +151,15 @@
               <td><code>transform: scale() rotate()</code>, <code>filter: drop-shadow()</code></td>
               <td><code>--dur-base</code> (380ms)</td>
               <td><code>--ease-spring</code> / <code>--ease-out-expo</code></td>
-              <td><strong>Confirmar que es un enlace interactivo:</strong> Al pasar el ratón por el logo de la cabecera, se amplía un poco e ilumina su sombra neón para indicar al usuario que puede pulsarlo para volver a la página de inicio.</td>
+              <td><strong>Confirmar que es un enlace interactivo:</strong> Al pasar el ratón por el logo de la cabecera o el emblema del Hero, se amplía ligeramente, rota e ilumina su sombra neón para indicar respuesta visual.</td>
             </tr>
             <tr>
               <td><code>.burger-2lines span</code></td>
               <td>Transición + Transformación 2D</td>
-              <td><code>transform: translateY() rotate()</code>, <code>width</code>, <code>box-shadow</code></td>
-              <td><code>--dur-base</code> (380ms)</td>
-              <td><code>--ease-spring</code></td>
-              <td><strong>Indicar el estado del menú móvil:</strong> Cuando el usuario toca el icono en móvil (<code>:checked</code>), las dos barras horizontales se igualan en tamaño y giran 45° formando una X. Así el usuario entiende de un vistazo que el menú está abierto y que tocando esa misma X se vuelve a cerrar.</td>
+              <td><code>transform: translateY() rotate()</code>, <code>width</code>, <code>background-color</code>, <code>box-shadow</code></td>
+              <td><code>--dur-base</code> (380ms) / <code>--dur-fast</code></td>
+              <td><code>--ease-spring</code> / <code>--ease-out-expo</code></td>
+              <td><strong>Indicar el estado del menú móvil:</strong> Al pasar el ratón intercambian su ancho (18px y 28px), y al tocar el icono en móvil (<code>:checked</code>) las dos barras se igualan a 28px y giran 45° formando una X para indicar que el menú está desplegado.</td>
             </tr>
             <tr>
               <td><code>.header-right</code> (Menú móvil)</td>
@@ -173,16 +173,16 @@
               <td><code>.nav-link</code> y <code>.nav-link::after</code></td>
               <td>Transición + Transformación 2D</td>
               <td><code>transform: scaleX()</code>, <code>color</code></td>
-              <td><code>--dur-base</code> (380ms)</td>
+              <td><code>--dur-base</code> (380ms) / <code>--dur-fast</code></td>
               <td><code>--ease-out-expo</code></td>
               <td><strong>Orientación dentro del sitio web:</strong> Despliega de izquierda a derecha una barra cian debajo del enlace que estás apuntando (usando <code>scaleX</code> de 0 a 1) y mantiene fija en rosa la barra de la página actual para que el usuario siempre sepa dónde está.</td>
             </tr>
             <tr>
               <td><code>.radio-btn</code> y <code>.radio-bars span</code></td>
               <td>Microinteracción + <code>@keyframes eqBounce</code></td>
-              <td><code>transform: scaleY() translateY()</code>, <code>color</code>, <code>border-color</code></td>
+              <td><code>transform: scaleY() translateY()</code>, <code>color</code>, <code>border-color</code>, <code>background-color</code></td>
               <td><code>--dur-fast</code> / 380ms - 620ms</td>
-              <td><code>--ease-out-expo</code></td>
+              <td><code>--ease-out-expo</code> / <code>--ease-spring</code></td>
               <td><strong>Feedback del estado del audio:</strong> Como el sonido no se ve en una captura o si tienes los altavoces bajos, las 3 barritas verticales suben y bajan a distinto ritmo solo cuando la música está sonando (clase <code>.is-playing</code>). Si pausas la radio, las barras se quedan quietas abajo.</td>
             </tr>
             <tr>
@@ -191,15 +191,15 @@
               <td><code>transform: scale(1.35) rotate(12deg)</code>, <code>color</code>, <code>filter</code></td>
               <td><code>--dur-fast</code> (180ms) / 1.8s</td>
               <td><code>--ease-spring</code> / <code>--ease-out-expo</code></td>
-              <td><strong>Guiar la selección de nivel de búsqueda:</strong> Usando el selector de hermanos <code>.star:hover ~ .star</code> y <code>.star:focus ~ .star</code>, ilumina en rosa todas las estrellas desde la primera hasta la seleccionada y apaga las siguientes, funcionando igual que un selector de valoración real pero ambientado en la policía de GTA.</td>
+              <td><strong>Guiar la selección de nivel de búsqueda:</strong> Al entrar al grupo ilumina las estrellas en rosa neón y, mediante el selector de hermanos <code>.star:hover ~ .star</code> y <code>.star:focus ~ .star</code>, atenúa las siguientes, funcionando igual que un selector de valoración real ambientado en la policía de GTA.</td>
             </tr>
             <tr>
               <td><code>.btn</code> (Botones principales)</td>
               <td>Microinteracción 2D (<code>:hover</code> y <code>:active</code>)</td>
-              <td><code>transform: translateY() scale()</code>, <code>box-shadow</code>, <code>border-color</code></td>
-              <td><code>--dur-fast</code> (180ms)</td>
-              <td><code>--ease-spring</code></td>
-              <td><strong>Diferenciar botones y confirmar el clic:</strong> Al pasar el ratón el botón sube <code>4px</code> y proyecta sombra neón para invitar a pulsarlo; en el instante de hacer clic (<code>:active</code>) baja <code>1px</code> y se encoge a <code>scale(0.98)</code> imitando la pulsación física de una tecla.</td>
+              <td><code>transform: translateY() scale()</code>, <code>background-color</code>, <code>border-color</code>, <code>box-shadow</code></td>
+              <td><code>--dur-fast</code> (180ms) / <code>--dur-base</code></td>
+              <td><code>--ease-spring</code> / <code>--ease-out-expo</code></td>
+              <td><strong>Diferenciar botones y confirmar el clic:</strong> Al pasar el ratón el botón sube <code>4px</code> y escala a <code>1.03</code> proyectando sombra neón; en el instante de hacer clic (<code>:active</code>) baja <code>1px</code> y se encoge a <code>scale(0.98)</code> imitando la pulsación física de una tecla.</td>
             </tr>
             <tr>
               <td><code>.card</code>, <code>.card-img</code> y <code>.card::before</code></td>
@@ -207,7 +207,7 @@
               <td><code>transform: translateY(-6px) scale(1.06) skewX(-25deg)</code>, <code>border-color</code>, <code>box-shadow</code></td>
               <td><code>--dur-base</code> / <code>--dur-slow</code></td>
               <td><code>--ease-out-expo</code></td>
-              <td><strong>Dirigir la atención a la tarjeta que estás leyendo:</strong> Cuando exploras una región del mapa, esa tarjeta se levanta ligeramente, su borde se ilumina en cian, la foto hace un zoom lento y pasa un reflejo diagonal. Esto ayuda a no perder de vista qué tarjeta estás leyendo dentro de una rejilla de 3 columnas.</td>
+              <td><strong>Dirigir la atención a la tarjeta que estás leyendo:</strong> Cuando exploras una región del mapa, esa tarjeta se levanta ligeramente, su borde se ilumina en cian, la foto hace un zoom lento y pasa un reflejo diagonal. Esto ayuda a no perder de vista qué tarjeta estás leyendo dentro de la rejilla.</td>
             </tr>
             <tr>
               <td><code>.flip-card-inner</code> y <code>.flip-card-back</code></td>
@@ -215,7 +215,7 @@
               <td><code>transform: rotateY(180deg) translateZ(10px-20px)</code>, <code>preserve-3d</code></td>
               <td><code>--dur-slow</code> (750ms)</td>
               <td><code>--ease-spring</code></td>
-              <td><strong>Mostrar más información sin recargar la pantalla:</strong> Permite dejar la cara delantera limpia con la ilustración grande de Lucía o Jason y, al pasar el ratón en ordenador (<code>:hover</code>) o tocar cada tarjeta de forma independiente en móvil (<code>.card-toggle-input:checked</code>), gira 180° en 3D para descubrir su historia y estadísticas policiales con relieve en el eje Z.</td>
+              <td><strong>Mostrar más información sin recargar la pantalla:</strong> Deja la cara delantera limpia con la ilustración de Lucía o Jason y, al pasar el ratón en PC (<code>:hover</code>) o tocar la capa <code>.flip-tap</code> en móvil (que marca su <code>.card-toggle-input:checked</code> independiente), gira 180° en 3D mostrando su expediente con relieve en el eje Z.</td>
             </tr>
             <tr>
               <td><code>.stat-bar-fill</code></td>
@@ -226,12 +226,12 @@
               <td><strong>Facilitar la lectura visual de porcentajes:</strong> En vez de mostrar las barras estáticas, parten de <code>scaleX(0)</code> y se rellenan una tras otra justo cuando la tarjeta 3D se da la vuelta, haciendo mucho más fácil comparar de un vistazo qué habilidad tiene más alta cada personaje.</td>
             </tr>
             <tr>
-              <td><code>.duo-banner-img</code></td>
+              <td><code>.duo-banner-img</code> (Vídeos de protagonistas)</td>
               <td>Transición + Transformación 2D</td>
-              <td><code>transform: scale(1.05)</code>, <code>filter: saturate() contrast()</code></td>
-              <td><code>--dur-slow</code> (750ms)</td>
+              <td><code>transform: scale(1.05)</code>, <code>filter: saturate(1.2) contrast(1.05)</code></td>
+              <td><code>--dur-slow</code> (750ms) / <code>--dur-base</code></td>
               <td><code>--ease-out-expo</code></td>
-              <td><strong>Destacar el bloque principal de protagonistas:</strong> Al pasar por el banner panorámico de Jason y Lucía, acerca suavemente el plano y aviva los colores para darle protagonismo visual antes de bajar a las fichas individuales.</td>
+              <td><strong>Destacar los vídeos en paralelo de Lucía y Jason:</strong> Al pasar el ratón o enfocar con el teclado cada vídeo superior en la página de protagonistas, acerca suavemente el plano y aviva la saturación y el contraste para darle foco visual antes de pasar a los expedientes 3D.</td>
             </tr>
             <tr>
               <td><code>.hero-content > *</code> y <code>.badge-neon</code></td>
@@ -239,14 +239,14 @@
               <td><code>opacity</code>, <code>transform: translateY() scale()</code></td>
               <td><code>--dur-slow</code> (750ms) / 2.8s</td>
               <td><code>--ease-out-expo</code></td>
-              <td><strong>Ordenar la lectura al entrar en la web:</strong> Gracias a los retrasos escalonados (<code>animation-delay</code> de 60ms a 420ms), el usuario ve aparecer primero el emblema VI, luego la etiqueta, después el título principal y por último los botones, guiando la vista de arriba abajo sin agobiar.</td>
+              <td><strong>Ordenar la lectura al entrar en la web:</strong> Gracias a los retrasos escalonados (<code>animation-delay</code> de 60ms a 420ms), el usuario ve aparecer primero el emblema VI, luego la etiqueta con pulso neón, después el título principal, el subtítulo y por último los botones, guiando la vista de arriba abajo.</td>
             </tr>
             <tr>
               <td><code>.reveal-on-scroll</code></td>
               <td>Efecto al hacer scroll (<code>@keyframes scrollReveal</code>)</td>
               <td><code>opacity</code>, <code>transform: translateY(28px a 0)</code>, <code>animation-timeline: view()</code></td>
               <td><code>--dur-slow</code> (750ms)</td>
-              <td><code>--ease-out-expo</code></td>
+              <td><code>--ease-out-expo</code> / <code>linear</code></td>
               <td><strong>Acompañar el ritmo de lectura al bajar:</strong> A medida que el usuario hace scroll hacia abajo, las secciones y tarjetas pasan de transparentes a visibles subiendo suavemente a su sitio, indicando que está entrando contenido nuevo en pantalla.</td>
             </tr>
           </tbody>
@@ -274,15 +274,15 @@
           <span class="card-tag">Decisión 02 · Accesibilidad (Movimiento Reducido)</span>
           <h3 class="card-title">Adaptación completa con <code>prefers-reduced-motion</code></h3>
           <p class="card-text">
-            Hay personas a las que los giros en 3D, los zooms o los movimientos al hacer scroll les provocan mareos y tienen activada la opción de "reducir movimiento" en su sistema operativo. Al final de <code>animaciones.css</code> he creado un bloque <code>@media (prefers-reduced-motion: reduce)</code> que no solo baja las duraciones a <code>0.01ms</code> y detiene los bucles infinitos, sino que además cambia cómo funcionan las tarjetas 3D de los protagonistas: desactiva el <code>rotateY(180deg)</code> y hace que al tocar o pasar el ratón la cara trasera aparezca directamente mediante un cambio limpio de <code>opacity</code>, con las barras ya al 100%. Así nadie pierde acceso a la información.
+            Hay personas a las que los giros en 3D, los zooms o los movimientos al hacer scroll les provocan mareos y tienen activada la opción de "reducir movimiento" en su sistema operativo. Al final de <code>animaciones.css</code> he creado un bloque <code>@media (prefers-reduced-motion: reduce)</code> que no solo baja las duraciones a <code>0.01ms</code> y detiene los bucles infinitos, sino que además cambia cómo funcionan las tarjetas 3D de los protagonistas: desactiva el <code>rotateY(180deg)</code> y hace que al tocar en móvil o pasar el ratón en PC la cara trasera aparezca directamente mediante un cambio limpio de <code>opacity</code>, con las barras ya al 100%. Así nadie pierde acceso a la información.
           </p>
         </div></article>
 
         <article class="card"><div class="card-body">
           <span class="card-tag">Decisión 03 · Interacción Táctil y Escritorio</span>
-          <h3 class="card-title">Control independiente con <code>:checked</code> en móvil y <code>:hover</code> en PC</h3>
+          <h3 class="card-title">Giro independiente con capa táctil <code>.flip-tap</code> + <code>:checked</code> en móvil y <code>:hover</code> en PC</h3>
           <p class="card-text">
-            En pantallas táctiles el estado <code>:focus-within</code> hace que al tocar una segunda tarjeta la primera pierda el foco y se gire sola. Para que en móvil cada expediente 3D de Lucía y Jason gire de ida y vuelta de forma totalmente independiente sin afectar al otro, he empleado un <code>&lt;input type="checkbox" class="card-toggle-input"&gt;</code> asociado a un <code>&lt;label class="flip-card-inner"&gt;</code>, manteniendo el giro automático al pasar el ratón en ordenador mediante <code>@media (hover: hover) and (pointer: fine)</code>.
+            En pantallas táctiles el estado <code>:focus-within</code> hace que al tocar una segunda tarjeta la primera pierda el foco y se cierre sola. Para que en móvil cada expediente 3D de Lucía y Jason gire de ida y vuelta de forma totalmente independiente sin afectar al otro, cada ficha incluye un <code>&lt;input type="checkbox" class="card-toggle-input"&gt;</code> y una etiqueta transparente superpuesta (<code>&lt;label class="flip-tap"&gt;</code>) activa solo en dispositivos táctiles (<code>@media not all and (hover: hover) and (pointer: fine)</code>), mientras que en ordenador se mantiene el giro directo al pasar el cursor con <code>@media (hover: hover) and (pointer: fine)</code>.
           </p>
         </div></article>
 
@@ -290,7 +290,7 @@
           <span class="card-tag">Decisión 04 · Interacción en CSS Puro</span>
           <h3 class="card-title">Resolver el menú móvil, tarjetas 3D, estrellas y scroll sin librerías JS</h3>
           <p class="card-text">
-            Siguiendo la regla del entregable de priorizar CSS puro, he resuelto las interacciones principales usando selectores avanzados de CSS: el menú móvil y el giro táctil de las tarjetas funcionan con el estado <code>:checked</code> de checkboxes ocultos; las 6 estrellas policiales se encienden y apagan dinámicamente combinando <code>:hover</code> y <code>:focus</code> con el selector de hermanos posteriores (<code>~ .star</code>); y las apariciones al bajar por la página funcionan con la propiedad nativa <code>animation-timeline: view()</code> dentro de <code>@supports</code>. El único JavaScript de toda la web es el <code>onclick</code> de una línea en el botón de la radio para dar al play/pause y alternar la clase <code>.is-playing</code>.
+            Siguiendo la regla del entregable de priorizar CSS puro, he resuelto las interacciones principales usando selectores avanzados de CSS: el menú móvil y el giro táctil de las tarjetas funcionan con el estado <code>:checked</code> de checkboxes ocultos; las 6 estrellas policiales se encienden juntas al entrar al contenedor (<code>.wanted-hud:hover .star</code>, <code>:focus-within</code>) y atenúan dinámicamente las posteriores a la seleccionada usando el selector de hermanos (<code>~ .star</code>); y las apariciones al bajar por la página funcionan con la propiedad nativa <code>animation-timeline: view()</code> dentro de <code>@supports</code>. El único JavaScript de toda la web es el <code>onclick</code> de una línea en el botón de la radio para dar al play/pause y alternar la clase <code>.is-playing</code>.
           </p>
         </div></article>
 
@@ -306,7 +306,7 @@
           <span class="card-tag">Decisión 06 · Arquitectura en 3 Capas</span>
           <h3 class="card-title">Separación total entre maquetación (<code>estilos.css</code>) y movimiento (<code>animaciones.css</code>)</h3>
           <p class="card-text">
-            Tal como pide el enunciado, he construido la web por capas independientes. Primero maqueté toda la estructura Mobile First en <code>estilos.css</code> asegurándome de que en móvil (360px), tableta (768px) y ordenador (1280px) todas las fotos, textos y tablas (con primera columna fija <code>position: sticky</code> en pantallas pequeñas) se leyeran cómodamente. Después añadí la capa de interacción y animación en <code>animaciones.css</code>. Si borras o comentas la línea que enlaza <code>animaciones.css</code>, toda la web sigue funcionando al 100%, manteniendo su diseño, sus colores y su menú operativo.
+            Tal como pide el enunciado, he construido la web por capas independientes. Primero maqueté toda la estructura Mobile First en <code>estilos.css</code> asegurándome de que en móvil (360px), tableta (768px) y ordenador (1280px) todas las fotos, textos y tablas (con diseño Full-Bleed y primera columna fija <code>position: sticky</code> en pantallas pequeñas) se leyeran cómodamente. Después añadí la capa de interacción y animación en <code>animaciones.css</code>. Si borras o comentas la línea que enlaza <code>animaciones.css</code>, toda la web sigue funcionando al 100%, manteniendo su diseño, sus colores y su menú operativo.
           </p>
         </div></article>
       </div>
@@ -331,7 +331,7 @@
     <div class="footer-inner">
       <a href="index.html" class="brand-logo">
         <img class="brand-logo-img" src="img/logo.png" width="40" height="40" alt="Logotipo oficial GTA VI">
-        <span class="brand-logo-text">GRAND THEFT AUTO <span class="vi-accent">VI</span></span>
+        <span class="brand-logo-text">GRAND THEFT AUTO </span>
       </a>
       <p>Proyecto Entregable Tema 07 · Diseño de Interfaces Web (Web Animada con Intención)</p>
       <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem; max-width: 600px;">
