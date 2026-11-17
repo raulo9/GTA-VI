@@ -236,13 +236,9 @@
    3. GIRO 3D DE 180° + RELIEVE PARALLAX CALIBRADO + BARRAS EN CASCADA
    ========================================================================== */
 
-/* Checkbox oculto para que cada tarjeta gire de forma independiente al tocar en móvil */
+/* Oculto los checkbox, pero siguen funcionando al pulsar sus etiquetas */
 .card-toggle-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
+  display: none;
 }
 
 /* Es la capa transparente que pongo encima de la tarjeta para detectar el toque en móvil.
